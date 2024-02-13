@@ -4,9 +4,8 @@
 |Nombre</br>___________|Foto</br>_________________________|Descripción</br>_______________________________________________________________________________________________________|
 |------|---------|-----|
 |*Ana Sofia Rodriguez Martinez*|<img src="https://github.com/Intro-CompuMovil/Azalea/assets/118637827/a6c69f01-c498-4671-a6d1-533855e9ca3e" height=150 width=150>|Naci el 2 de Agosto de 2004 en Bogota, Colombia. Actualmente tengo 19 años y soy estudiante de Ingenieria de Sistemas (5to semestre) y Administración de Empresas (7mo semestre) en la Universidad Javeriana. Algunas de las cosas que me gustan hacer en mis ratos libres es tocar el ukelele, ir a karaoke y salir con mis amigos/familia. Mi animal favorito es el gato, y tengo 4, ademas un dato curioso sobre mi es que me encanta cantar, pero no se cantar, y mi flor favorita es el girasol.|
-|*César Andrés Olarte Marín*|<img src="" height=150 width=150>|Nací el 18 de diciembre del 2004 en Bucaramanga, Colombia. Tengo 19 años y soy estudiante de 5.º semestre de la carrera de ingeniería de sistemas dentro de la Pontificia Universidad Javeriana. Disfruto mucho de leer libros, principalmente de romance y fantasía; tengo más horas en los videojuegos de las que alguna vez podre contar; y disfruto de escribir en ratos libres -nada de literatura, solo cartas y así-.|
+|*César Andrés Olarte Marín*|<img src="https://github.com/Intro-CompuMovil/Azalea/assets/104476524/7a0c7a3b-0cac-4e92-8b33-3aed7005a92c" height=150 width=150>|Nací el 18 de diciembre del 2004 en Bucaramanga, Colombia. Tengo 19 años y soy estudiante de 5.º semestre de la carrera de ingeniería de sistemas dentro de la Pontificia Universidad Javeriana. Disfruto mucho de leer libros, principalmente de romance y fantasía; tengo más horas en los videojuegos de las que alguna vez podre contar; y disfruto de escribir en ratos libres -nada de literatura, solo cartas y así-.|
 |*Paola Benitez Ruiz*|<img src="https://github.com/Intro-CompuMovil/Azalea/assets/118636346/0ba2c9a5-9865-4e7c-b9cd-02936057104c" height=150 width=150>|Nací el 15 de octubre del 2004 en Bogotá, Colombia. Tengo 19 años y soy estudiante de 5.º semestre de la carrera de ingeniería de sistemas dentro de la Pontificia Universidad Javeriana. Las cosas que me gustan hacer en mis ratos libres es bailar en mi cuarto cualquier tipo de música, leer libros de romance, ver series coreanas. Un dato curioso sobre mi es que me gusta imaginar la continuación de las historias que he leído, para darles otro final. |
-
 
 ## Documentación
 A continuación se provee las historias de usuario y diagrama de clases iniciales del proyecto:
@@ -45,3 +44,24 @@ Se tiene igualmente el diagrama de clases inicial de la aplicación:
 
 ## Pantallas
 Se provee diseños de las principales pantallas del proyecto *Azalea*:
+
+### Inicio de Sesion
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/8fe62a0b-a954-4e68-9b91-5961a13fadd2)
+
+### Cancelacion alarma
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/99c975a4-10b7-4e4c-b098-e2247616fad8)
+
+### Personalizar mensaje emergencia
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/f2b94f30-5fee-4764-9882-4802ce88455d)
+
+### Perfil y estado de disponibilidad 
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/3ebdea0a-3a7b-4c1f-9ec0-67bdf4964521)
+
+### Boton de alerta
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/4412ea33-2efb-4948-8dd8-9f4fa495bd11)
+
+### Adicionar contacto emergencia
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/ea6ec8d1-3b26-4723-a655-e300109e12f1)
+
+### Registrar datos de usuario
+![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/caf0a875-6b17-4b0b-9c23-c2f952c97739)
