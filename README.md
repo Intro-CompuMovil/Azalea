@@ -65,3 +65,4 @@ Se provee diseños de las principales pantallas del proyecto *Azalea*:
 
 ### Registrar datos de usuario
 ![imagen](https://github.com/Intro-CompuMovil/Azalea/assets/104476524/caf0a875-6b17-4b0b-9c23-c2f952c97739)
+
