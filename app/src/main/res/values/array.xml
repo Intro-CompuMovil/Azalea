@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_status_contact">
+        <item>Disponible</item>
+        <item>No disponible</item>
+    </string-array>
+</resources>

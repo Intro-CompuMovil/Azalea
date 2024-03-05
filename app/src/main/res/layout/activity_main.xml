@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+
+    <View
+        android:id="@+id/viewBg0"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/azaleaOscuro"/>
+
+    <View
+        android:id="@+id/viewBg1"
+        android:layout_width="wrap_content"
+        android:layout_height="375dp"
+        android:background="@color/azalea"/>
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:srcCompat="@drawable/logo_1_azalea"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:contentDescription="@string/azalea"/>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="275dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/imgViewFlor0"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="640dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2"
+        android:layout_marginLeft="295dp"/>
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="275dp"
+        android:alpha="0.2"
+        android:layout_marginLeft="295dp"/>
+
+    <ImageView
+        android:id="@+id/imgViewFlor1"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="640dp"
+        android:alpha="0.2"
+        android:layout_marginLeft="295dp"/>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="344dp"
+        android:layout_height="115dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="397dp"
+        android:background="@color/white"
+        />
+
+    <EditText
+        android:id="@+id/editTextUserMainAct"
+        android:layout_width="344dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="397dp"
+        android:layout_marginStart="35dp"
+        android:hint="@string/usuario" />
+
+    <EditText
+        android:id="@+id/editTextPasswordMainAct"
+        android:layout_width="344dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="35dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@id/editTextUserMainAct"
+        android:hint="@string/contrase_a"/>
+
+    <Button
+        android:id="@+id/buttonLogInMainAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view3"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/cafeAzalea"
+        android:gravity="center"
+        android:text="@string/iniciar_sesi_n" />
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/olvidaste_tu_contrase_a"
+        android:layout_below="@id/buttonLogInMainAct"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forgotPasswordTextView"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/no_tienes_una_cuenta_reg_strate"
+        android:textColor="@color/cafeAzalea" />
+
+
+
+
+</RelativeLayout>

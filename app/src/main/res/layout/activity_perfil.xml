@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PerfilActivity"
+    android:background="@color/azalea">
+
+    <TextView
+        android:id="@+id/titleProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/azalea"
+        android:textSize="30sp"
+        android:fontFamily="@font/abril_fatface"
+        android:textColor="@color/cafeAzalea"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="71dp"
+        android:layout_height="63dp"
+        android:layout_below="@id/titleProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/pfp" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre_completo"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_below="@id/profileImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/mailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/correo"
+        android:layout_below="@id/textName"
+        android:layout_alignStart="@id/textName"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/mailContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="correo@example.com"
+        android:layout_below="@id/textName"
+        android:layout_toEndOf="@id/mailText"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/telefono"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textName"
+        android:layout_below="@id/mailContent"
+        />
+
+    <TextView
+        android:id="@+id/phoneContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mailContent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:text="54626"/>
+
+    <TextView
+        android:id="@+id/RHText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rh"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/phoneContent"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textName"
+        />
+
+    <TextView
+        android:id="@+id/rhContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+O"
+        android:layout_below="@+id/phoneContent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/phisycaldescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descripci_n_f_sica"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/rhContent"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textName"
+        />
+
+    <TextView
+        android:id="@+id/phisycaldescriptionContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Cabello negro"
+        android:layout_below="@id/rhContent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/phisycaldescriptionText"
+        />
+
+    <TextView
+        android:id="@+id/emergencyContactText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phisycaldescriptionContent"
+        android:layout_alignLeft="@id/textName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/contactos_de_emergencia"
+
+        />
+
+    <TextView
+        android:id="@+id/emergencyContact1Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alba M"
+        android:layout_below="@id/emergencyContactText"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/emergencyContact2Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nahiara M"
+        android:layout_below="@id/emergencyContact1Content"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/stateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estado"
+        android:layout_below="@id/emergencyContact2Content"
+        android:layout_alignStart="@id/textName"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:id="@+id/statesSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emergencyContact2Content"
+        android:layout_toEndOf="@id/stateText"
+        android:layout_marginTop="8dp"
+        android:entries="@array/spinner_status_contact"/>
+
+    <ImageView
+        android:id="@+id/flower1"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/flower2"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/flower3"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/flower4"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+
+</RelativeLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azaleaOscuro"
+    tools:context=".RegistrarseActivity">
+
+    <View
+        android:id="@+id/viewBg1"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:background="@color/azalea"/>
+
+    <ImageView
+        android:id="@+id/imgProfileCancelAct"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:srcCompat="@drawable/logo_2_azalea"
+        />
+
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Registrarse"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="36dp"
+        android:layout_marginTop="250dp"
+       android:gravity="center"
+       />
+
+    <TextView
+        android:id="@+id/nombreR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombres_y_apellidos"
+        android:fontFamily="@font/abril_fatface"
+        android:layout_below="@id/registerTextView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/nombre"
+        android:layout_below="@id/nombreR"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/correoR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/correo"
+        android:fontFamily="@font/abril_fatface"
+        android:layout_below="@id/editTextText"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/correoR"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:id="@+id/contrasenaR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contrase_a_dosp"
+        android:fontFamily="@font/abril_fatface"
+        android:layout_below="@id/editTextTextEmailAddress"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextPassword2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@id/contrasenaR"
+        android:layout_marginLeft="20dp"
+        android:hint="@string/contrase_a"/>
+
+    <Button
+        android:id="@+id/buttonSendCancelAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextTextPassword2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/cafeAzalea"
+        android:gravity="center"
+        android:text="@string/registrarse" />
+
+    <ImageView
+        android:id="@+id/imgViewFlor0"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="640dp"
+        android:alpha="0.2" />
+    <ImageView
+        android:id="@+id/imgViewFlor1"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:layout_marginTop="640dp"
+        android:alpha="0.2"
+        android:layout_marginLeft="295dp"/>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2"
+        android:layout_marginLeft="295dp"/>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2" />
+</RelativeLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarContactoActivity"
+    android:background="@color/azalea">
+
+    <TextView
+        android:id="@+id/titleRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrar_contacto_de_emergencia"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/cafeAzalea"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:fontFamily="@font/abril_fatface"
+
+        />
+
+    <ImageView
+        android:id="@+id/flower1"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+
+
+    <ImageView
+        android:id="@+id/flower2"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+
+    <ImageView
+        android:id="@+id/flower3"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+
+
+    <ImageView
+        android:id="@+id/flower4"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+
+
+    <TextView
+        android:id="@+id/labelContactNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/numero_del_contacto"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18sp"
+        android:layout_below="@id/titleRegister"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface"
+        />
+
+    <EditText
+        android:id="@+id/editContactNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_numero"
+        android:layout_toEndOf="@id/labelContactNumber"
+        android:layout_alignBaseline="@id/labelContactNumber"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <Button
+        android:id="@+id/btnSelectContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seleccionar_contacto"
+        android:layout_below="@id/labelContactNumber"
+        android:layout_toEndOf="@id/labelContactNumber"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/cafeAzalea"
+        android:fontFamily="@font/abril_fatface"
+        />
+
+    <TextView
+        android:id="@+id/labelContactName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre_del_contacto"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18sp"
+        android:layout_below="@id/btnSelectContact"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/abril_fatface"
+        />
+
+    <EditText
+        android:id="@+id/editPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_nombre_de_tel_fono"
+        android:layout_toEndOf="@id/labelContactName"
+        android:layout_alignBaseline="@id/labelContactName"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/labelRelation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/relaci_n"
+        android:textColor="@color/cafeAzalea"
+        android:textSize="18sp"
+        android:layout_below="@id/editPhoneNumber"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface"/>
+
+    <EditText
+        android:id="@+id/editRelation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_relaci_n_con_el_contacto"
+        android:layout_toEndOf="@id/labelRelation"
+        android:layout_alignBaseline="@id/labelRelation"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp" />
+
+
+    <Button
+        android:id="@+id/btnSendRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_solicitud"
+        android:layout_below="@id/editRelation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/cafeAzalea"
+        android:fontFamily="@font/abril_fatface"
+        />
+
+</RelativeLayout>

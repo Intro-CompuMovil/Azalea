@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBasicDataActivity"
+    android:background="@color/azalea">
+
+    <ImageView
+        android:id="@+id/flower1"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+    <ImageView
+        android:id="@+id/flower2"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.2" />
+    <ImageView
+        android:id="@+id/flower3"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+    <ImageView
+        android:id="@+id/flower4"
+        android:layout_width="115dp"
+        android:layout_height="100dp"
+        android:src="@drawable/azalea"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.2" />
+    <TextView
+        android:id="@+id/titleBase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AZALEA"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="@color/cafeAzalea"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/abril_fatface" />
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar datos básicos"
+        android:textSize="24sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/titleBase"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <TextView
+        android:id="@+id/labelFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre_dp"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/subtitle"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/abril_fatface"/>
+    <EditText
+        android:id="@+id/editFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_nombre_completo"
+        android:layout_toEndOf="@id/labelFullName"
+        android:layout_alignBaseline="@id/labelFullName"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelBirthDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha_de_nacimiento"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/editFullName"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <EditText
+        android:id="@+id/editFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/selecciona_una_fecha"
+        android:layout_toEndOf="@id/labelBirthDate"
+        android:layout_alignBaseline="@id/labelBirthDate"
+        android:inputType="none"
+        android:clickable="true"
+        android:focusable="false"
+        android:onClick="showDatePickerDialog"/>
+    <TextView
+        android:id="@+id/labelBloodType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tipo_de_sangre"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelBirthDate"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <EditText
+        android:id="@+id/editBloodType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_tipo_de_sangre"
+        android:layout_toEndOf="@id/labelBloodType"
+        android:layout_alignBaseline="@id/labelBloodType"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estatura"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelBloodType"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <EditText
+        android:id="@+id/editHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_estatura"
+        android:layout_toEndOf="@id/labelHeight"
+        android:layout_alignBaseline="@id/labelHeight"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peso"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelHeight"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface"/>
+    <EditText
+        android:id="@+id/editWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_peso"
+        android:layout_toEndOf="@id/labelWeight"
+        android:layout_alignBaseline="@id/labelWeight"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelHairColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color_de_pelo"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelWeight"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface"/>
+    <EditText
+        android:id="@+id/editHairColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_color_de_pelo"
+        android:layout_toEndOf="@id/labelHairColor"
+        android:layout_alignBaseline="@id/labelHairColor"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelEyeColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color_de_ojos"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelHairColor"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <EditText
+        android:id="@+id/editEyeColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introduzca_su_color_de_ojos"
+        android:layout_toEndOf="@id/labelEyeColor"
+        android:layout_alignBaseline="@id/labelEyeColor"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+    <TextView
+        android:id="@+id/labelPhysicalDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descripciones_f_sicas_adicionales"
+        android:textSize="18sp"
+        android:textColor="@color/cafeAzalea"
+        android:layout_below="@id/labelEyeColor"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface" />
+    <EditText
+        android:id="@+id/editPhysicalDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/labelPhysicalDescription"
+        android:layout_alignBaseline="@id/labelPhysicalDescription"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp" />
+
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar_cambios"
+        android:layout_below="@id/editPhysicalDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/cafeAzalea"
+        android:textColor="@color/white"
+        android:fontFamily="@font/abril_fatface"
+        />
+
+</RelativeLayout>
