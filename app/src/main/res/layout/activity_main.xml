@@ -121,11 +121,11 @@
         android:id="@+id/forgotPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/olvidaste_tu_contrase_a"
         android:layout_below="@id/buttonLogInMainAct"
+        android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:textColor="@color/cafeAzalea"
-        android:layout_centerInParent="true"/>
+        android:text="@string/olvidaste_tu_contrase_a"
+        android:textColor="@color/cafeAzalea" />
 
     <TextView
         android:id="@+id/registerTextView"

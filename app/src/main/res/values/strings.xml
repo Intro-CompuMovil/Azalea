@@ -61,4 +61,6 @@
     <string name="fecha_de_nacimiento">Fecha de nacimiento:</string>
     <string name="introduzca_su_nombre_completo">Introduzca su nombre completo</string>
     <string name="nombre_dp">Nombre:</string>
+    <string name="recuperar_contrase_a">Recuperar contraseña</string>
+    <string name="ingrese_correo">Ingrese correo:</string>
 </resources>

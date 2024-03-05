@@ -26,5 +26,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegistrarseActivity::class.java)
             startActivity(intent)
         }
+
+        val forgotPassText = findViewById<TextView>(R.id.forgotPasswordTextView)
+        forgotPassText.setOnClickListener {
+            val intent = Intent(this, ClaveOlvidadaActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
