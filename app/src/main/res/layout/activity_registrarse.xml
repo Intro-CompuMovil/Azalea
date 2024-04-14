@@ -4,142 +4,154 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azaleaOscuro"
+    android:background="@color/azalea"
     tools:context=".RegistrarseActivity">
 
-    <View
-        android:id="@+id/viewBg1"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:background="@color/azalea"/>
 
     <ImageView
-        android:id="@+id/imgProfileCancelAct"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:srcCompat="@drawable/logo_2_azalea"
-        />
+        android:id="@+id/imageView01"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/azalea" />
 
-    <TextView
-        android:id="@+id/registerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/abril_fatface"
-        android:text="Registrarse"
-        android:textColor="@color/cafeAzalea"
-        android:textSize="36dp"
-        android:layout_marginTop="250dp"
-       android:gravity="center"
-       />
+    <ImageView
+        android:id="@+id/imageView00"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/azalea"
+        android:alpha="0.2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:scaleX="-1"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/azalea" />
 
-    <TextView
-        android:id="@+id/nombreR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nombres_y_apellidos"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/registerTextView"
+    <ImageView
+        android:id="@+id/imgViewLogoMainAct"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:srcCompat="@drawable/logo_1_azalea"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/cafeAzalea"
-        android:textSize="18dp"
-        />
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/nombre"
-        android:layout_below="@id/nombreR"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:id="@+id/correoR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/correo"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/editTextText"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/cafeAzalea"
-        android:textSize="18dp"
-        />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Correo electrónico"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/correoR"
-        android:layout_marginLeft="20dp"
-        />
-    <TextView
-        android:id="@+id/contrasenaR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/contrase_a_dosp"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/editTextTextEmailAddress"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/cafeAzalea"
-        android:textSize="18dp"
-        />
-
-    <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@id/contrasenaR"
-        android:layout_marginLeft="20dp"
-        android:hint="@string/contrase_a"/>
-
-    <Button
-        android:id="@+id/buttonSendCancelAct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextPassword2"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/cafeAzalea"
+        android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/registrarse" />
+        android:contentDescription="@string/azalea"
+        android:layout_marginHorizontal="50dp"/>
 
-    <ImageView
-        android:id="@+id/imgViewFlor0"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/azalea"
-        android:layout_marginTop="640dp"
-        android:alpha="0.2" />
-    <ImageView
-        android:id="@+id/imgViewFlor1"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/azalea"
-        android:layout_marginTop="640dp"
-        android:alpha="0.2"
-        android:layout_marginLeft="295dp"/>
+    <RelativeLayout
+        android:id="@+id/viewBg0"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imgViewLogoMainAct"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/roundcorner_logandregister">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="120dp"
-        android:layout_height="115dp"
-        app:srcCompat="@drawable/azalea"
-        android:alpha="0.2"
-        android:layout_marginLeft="295dp"/>
+        <EditText
+            android:id="@+id/editTextNameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:hint="@string/nombre_completo"
+            android:background="@drawable/roundcorner_namepass"
+            android:autofillHints="name"
+            android:inputType="text"
+            android:textColor="@color/black"/>
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="120dp"
-        android:layout_height="115dp"
-        app:srcCompat="@drawable/azalea"
-        android:alpha="0.2" />
+
+        <EditText
+            android:id="@+id/editTextEmailAddressRegister"
+            android:layout_below="@id/editTextNameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:background="@drawable/roundcorner_namepass"
+            android:hint="@string/correo_electr_nico"
+            android:textSize="20sp"
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editTextPasswordRegister"
+            android:layout_below="@id/editTextEmailAddressRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="25dp"
+            android:padding="15dp"
+            android:background="@drawable/roundcorner_namepass"
+            android:hint="@string/contrase_a"
+            android:textSize="20sp"
+            android:autofillHints="password"
+            android:inputType="textPassword"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextPasswordRegister"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/cafeAzalea"
+            android:gravity="center"
+            android:text="@string/registrarse"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonRegister"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/ya_tienes_una_cuenta_inicia_sesi_n"
+            android:textColor="@color/cafeAzalea"
+            />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="75dp"
+            android:layout_height="115dp"
+            app:srcCompat="@drawable/azalea"
+            android:alpha="0.2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/azalea" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="75dp"
+            android:layout_height="115dp"
+            app:srcCompat="@drawable/azalea"
+            android:alpha="0.2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:scaleX="-1"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/azalea" />
+
+    </RelativeLayout>
+
 </RelativeLayout>

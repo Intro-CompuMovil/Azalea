@@ -4,18 +4,25 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.azalea.databinding.ActivityRegistrarseBinding
 
 class RegistrarseActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRegistrarseBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registrarse)
+        binding = ActivityRegistrarseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpButtons();
     }
 
     private fun setUpButtons() {
-        val signUpButton = findViewById<Button>(R.id.buttonSendCancelAct)
-        signUpButton.setOnClickListener {
+        binding.buttonRegister.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.loginTextView.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

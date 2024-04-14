@@ -5,31 +5,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.azalea.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpButtons();
     }
 
     private fun setUpButtons() {
-        val logInButton = findViewById<Button>(R.id.buttonLogInMainAct)
-        logInButton.setOnClickListener {
+        binding.buttonLogInMainAct.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
 
-        val signUpText = findViewById<TextView>(R.id.registerTextView)
-        signUpText.setOnClickListener {
+        binding.registerTextView.setOnClickListener {
             val intent = Intent(this, RegistrarseActivity::class.java)
-            startActivity(intent)
-        }
-
-        val forgotPassText = findViewById<TextView>(R.id.forgotPasswordTextView)
-        forgotPassText.setOnClickListener {
-            val intent = Intent(this, ClaveOlvidadaActivity::class.java)
             startActivity(intent)
         }
     }

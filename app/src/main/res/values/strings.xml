@@ -63,4 +63,6 @@
     <string name="nombre_dp">Nombre:</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
     <string name="ingrese_correo">Ingrese correo:</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="ya_tienes_una_cuenta_inicia_sesi_n">¿Ya tienes una cuenta? Inicia sesión</string>
 </resources>
