@@ -1,28 +1,57 @@
-package com.example.azalea
+package com.example.azalea.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.example.azalea.PermissionsCodes.Companion.CAMERA_PERMISSION_CODE
+import com.example.azalea.data.PermissionsCodes.Companion.CAMERA_PERMISSION_CODE
+import com.example.azalea.databinding.ActivityPerfilBinding
 
 class PerfilActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPerfilBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil)
+        binding = ActivityPerfilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        checkPermissionForCamera(this)
+        setUpButtonsWithoutPermissions()
+    }
+
+    private fun setUpButtonsWithoutPermissions() {
+        binding.profileImage.setOnClickListener {
+            checkPermissionForCamera(this)
+        }
+
+        binding.buttonEditProfile.setOnClickListener {
+            val intent = Intent(this, AddBasicDataActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setUpButtonsWithCameraPermissions() {
+        binding.profileImage.setOnClickListener {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivity(takePictureIntent)
+        }
+    }
+
+    private fun disableButtons() {
+        binding.profileImage.isEnabled = false
     }
 
     private fun checkPermissionForCamera(activity: AppCompatActivity) {
         when{
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED -> {
                 // Permission already granted
-                setUpButtons()
+                setUpButtonsWithCameraPermissions()
             }
 
             shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) -> {
@@ -55,7 +84,7 @@ class PerfilActivity : AppCompatActivity() {
             CAMERA_PERMISSION_CODE -> {
                 if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // Permission granted
-                    setUpButtons()
+                    setUpButtonsWithCameraPermissions()
                 } else {
                     // Permission denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
@@ -68,19 +97,5 @@ class PerfilActivity : AppCompatActivity() {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }
         }
-    }
-
-    private fun setUpButtons() {
-        val logOutButton = findViewById<ImageView>(R.id.profileImage)
-        logOutButton.setOnClickListener {
-            // Implicit intent to camera
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivity(intent)
-        }
-    }
-
-    private fun disableButtons() {
-        val logOutButton = findViewById<ImageView>(R.id.profileImage)
-        logOutButton.isEnabled = false
     }
 }

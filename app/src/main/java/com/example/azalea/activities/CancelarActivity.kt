@@ -1,27 +1,77 @@
-package com.example.azalea
+package com.example.azalea.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricPrompt
-import androidx.biometric.BiometricManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.example.azalea.PermissionsCodes.Companion.BIOMETRIC_PERMISSION_CODE
-import java.util.concurrent.Executor
+import com.example.azalea.data.PermissionsCodes.Companion.BIOMETRIC_PERMISSION_CODE
 import java.util.concurrent.Executors
+import com.example.azalea.databinding.ActivityCancelarBinding
 
 class CancelarActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCancelarBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cancelar)
+        binding = ActivityCancelarBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         checkPermissionForBiometric(this)
+    }
+
+    private fun setUpButtons() {
+        binding.goBackButtonCancelAct.setOnClickListener {
+            val intent = Intent(this, MenuNavigationActivity::class.java)
+            startActivity(intent)
+        }
+
+        val executor = Executors.newSingleThreadExecutor()
+
+        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                runOnUiThread{
+                    Toast.makeText(applicationContext, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                runOnUiThread{
+                    Toast.makeText(applicationContext, "Authentication succeeded", Toast.LENGTH_SHORT).show()
+                }
+                // Continue with your action after successful authentication
+            }
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                runOnUiThread{
+                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric for my app")
+            .setSubtitle("Assert your identity")
+            .setNegativeButtonText("Use other method")
+            .build()
+
+        binding.buttonSendCancelAct.setOnClickListener {
+            biometricPrompt.authenticate(promptInfo)
+        }
+    }
+
+    private fun disableButtons() {
+        binding.goBackButtonCancelAct.setOnClickListener {
+            val intent = Intent(this, MenuNavigationActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.buttonSendCancelAct.isEnabled = false
     }
 
     private fun checkPermissionForBiometric(activity: AppCompatActivity) {
@@ -74,61 +124,5 @@ class CancelarActivity : AppCompatActivity() {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }
         }
-    }
-
-    private fun setUpButtons() {
-        val menuButton = findViewById<ImageButton>(R.id.imgButtonMenuCancelAct)
-        menuButton.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
-        }
-
-        val executor = Executors.newSingleThreadExecutor()
-
-        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                super.onAuthenticationError(errorCode, errString)
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                super.onAuthenticationSucceeded(result)
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "Authentication succeeded", Toast.LENGTH_SHORT).show()
-                }
-                // Continue with your action after successful authentication
-            }
-
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric for my app")
-            .setSubtitle("Assert your identity")
-            .setNegativeButtonText("Use other method")
-            .build()
-
-        val cancelarButton = findViewById<Button>(R.id.buttonSendCancelAct)
-        cancelarButton.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-        }
-    }
-
-    private fun disableButtons() {
-        val menuButton = findViewById<ImageButton>(R.id.imgButtonMenuCancelAct)
-        menuButton.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
-        }
-
-        val cancelarButton = findViewById<Button>(R.id.buttonSendCancelAct)
-        cancelarButton.isEnabled = false
     }
 }

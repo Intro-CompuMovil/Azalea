@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azalea"
-    tools:context=".RegistrarseActivity">
+    tools:context=".activities.RegistrarseActivity">
 
 
     <ImageView
@@ -51,7 +51,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/roundcorner_logandregister">
+        android:background="@drawable/template_roundcorner_logandregister">
 
         <EditText
             android:id="@+id/editTextNameRegister"
@@ -64,7 +64,7 @@
             android:textSize="20sp"
             android:padding="15dp"
             android:hint="@string/nombre_completo"
-            android:background="@drawable/roundcorner_namepass"
+            android:background="@drawable/template_roundcorner_namepass"
             android:autofillHints="name"
             android:inputType="text"
             android:textColor="@color/black"/>
@@ -79,7 +79,7 @@
             android:layout_marginEnd="35dp"
             android:layout_marginTop="20dp"
             android:padding="15dp"
-            android:background="@drawable/roundcorner_namepass"
+            android:background="@drawable/template_roundcorner_namepass"
             android:hint="@string/correo_electr_nico"
             android:textSize="20sp"
             android:autofillHints="emailAddress"
@@ -95,7 +95,7 @@
             android:layout_marginEnd="35dp"
             android:layout_marginTop="25dp"
             android:padding="15dp"
-            android:background="@drawable/roundcorner_namepass"
+            android:background="@drawable/template_roundcorner_namepass"
             android:hint="@string/contrase_a"
             android:textSize="20sp"
             android:autofillHints="password"

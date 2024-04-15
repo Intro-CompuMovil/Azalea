@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/emergencia"
+        android:id="@+id/buttonPanico"
+        android:icon="@drawable/baseline_warning_triangle_solid"/>
+    <item android:title="@string/alertas"
+        android:id="@+id/buttonAlertas"
+        android:icon="@drawable/baseline_message_alert_solid"/>
+    <item android:title="@string/contactos"
+        android:id="@+id/buttonContactos"
+        android:icon="@drawable/baseline_contacts_24"/>
+</menu>

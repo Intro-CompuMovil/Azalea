@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.PanicoFragment"
+    android:background="@color/azalea">
+
+    <ScrollView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/imgButtonPanic"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                android:background="@drawable/template_circlebutton"
+                android:src="@drawable/baseline_warning_triangle_solid"
+                android:layout_centerInParent="true"
+                android:layout_margin="20dp"
+                android:contentDescription="@string/panicbutton"
+                android:padding="60dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <Button
+                android:id="@+id/buttonCancelarPanic"
+                android:layout_width="match_parent"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/cafeAzalea"
+                android:gravity="center"
+                android:text="@string/cancelar"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/imgButtonPanic"/>
+
+            <Button
+                android:id="@+id/buttonPersonalizePanic"
+                android:layout_width="match_parent"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/cafeAzalea"
+                android:gravity="center"
+                android:text="@string/personalizar_mensaje"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/buttonCancelarPanic"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </ScrollView>
+
+</FrameLayout>

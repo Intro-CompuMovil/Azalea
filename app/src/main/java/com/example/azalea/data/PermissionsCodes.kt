@@ -1,4 +1,4 @@
-package com.example.azalea
+package com.example.azalea.data
 
 class PermissionsCodes {
     companion object {

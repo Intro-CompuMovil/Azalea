@@ -1,4 +1,4 @@
-package com.example.azalea
+package com.example.azalea.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,21 +7,25 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.example.azalea.PermissionsCodes.Companion.CONTACTS_PERMISSION_CODE
+import com.example.azalea.R
+import com.example.azalea.data.PermissionsCodes.Companion.CONTACTS_PERMISSION_CODE
+import com.example.azalea.databinding.ActivityRegistrarContactoBinding
 
 class RegistrarContactoActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRegistrarContactoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registrar_contacto)
+        binding = ActivityRegistrarContactoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        checkPermissionForContacts()
+        setUpButtonsWithoutPermissions()
     }
 
     private fun checkPermissionForContacts() {
         when{
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED -> {
                 // Permission already granted
-                setUpButtons()
+                setUpButtonsWithPermissions()
             }
 
             shouldShowRequestPermissionRationale(android.Manifest.permission.READ_CONTACTS) -> {
@@ -54,7 +58,7 @@ class RegistrarContactoActivity : AppCompatActivity() {
             CONTACTS_PERMISSION_CODE -> {
                 if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // Permission granted
-                    setUpButtons()
+                    setUpButtonsWithPermissions()
                 } else {
                     // Permission denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
@@ -69,25 +73,25 @@ class RegistrarContactoActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpButtons() {
-        val seleccionarContactoButton = findViewById<Button>(R.id.btnSelectContact)
-        seleccionarContactoButton.setOnClickListener {
-            // Implicit intent to select a contact
-            val intent = Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)
-            startActivity(intent)
+    private fun setUpButtonsWithoutPermissions() {
+        binding.btnSelectContact.setOnClickListener {
+            checkPermissionForContacts()
         }
 
-        val registrarContactoButton = findViewById<Button>(R.id.btnSendRequest)
-        registrarContactoButton.setOnClickListener {
+        binding.btnSendRequest.setOnClickListener {
             Toast.makeText(this, "Solicitud enviada", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun disableButtons() {
-        val seleccionarContactoButton = findViewById<Button>(R.id.btnSelectContact)
-        seleccionarContactoButton.isEnabled = false
+    private fun setUpButtonsWithPermissions() {
+        binding.btnSelectContact.setOnClickListener {
+            // Implicit intent to select a contact
+            val intent = Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)
+            startActivity(intent)
+        }
+    }
 
-        val registrarContactoButton = findViewById<Button>(R.id.btnSendRequest)
-        registrarContactoButton.isEnabled = false
+    private fun disableButtons() {
+        binding.btnSelectContact.isEnabled = false
     }
 }

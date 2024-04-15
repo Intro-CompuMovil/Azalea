@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     android:background="@color/azalea">
 
     <ImageView
@@ -50,7 +50,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/roundcorner_logandregister">
+        android:background="@drawable/template_roundcorner_logandregister">
 
         <EditText
             android:id="@+id/editTextUserMainAct"
@@ -63,7 +63,7 @@
             android:textSize="20sp"
             android:padding="15dp"
             android:hint="@string/usuario"
-            android:background="@drawable/roundcorner_namepass"
+            android:background="@drawable/template_roundcorner_namepass"
             android:autofillHints="emailAddress"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"/>
@@ -77,7 +77,7 @@
             android:layout_marginEnd="35dp"
             android:layout_marginTop="25dp"
             android:padding="15dp"
-            android:background="@drawable/roundcorner_namepass"
+            android:background="@drawable/template_roundcorner_namepass"
             android:hint="@string/contrase_a"
             android:textSize="20sp"
             android:autofillHints="password"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerfilActivity"
+    tools:context=".activities.PerfilActivity"
     android:background="@color/azalea">
 
     <TextView
@@ -119,41 +119,11 @@
         />
 
     <TextView
-        android:id="@+id/emergencyContactText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phisycaldescriptionContent"
-        android:layout_alignLeft="@id/textName"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/contactos_de_emergencia"
-
-        />
-
-    <TextView
-        android:id="@+id/emergencyContact1Content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alba M"
-        android:layout_below="@id/emergencyContactText"
-        android:layout_centerInParent="true"
-        />
-
-    <TextView
-        android:id="@+id/emergencyContact2Content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nahiara M"
-        android:layout_below="@id/emergencyContact1Content"
-        android:layout_centerInParent="true"
-        />
-
-    <TextView
         android:id="@+id/stateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/estado"
-        android:layout_below="@id/emergencyContact2Content"
+        android:layout_below="@id/phisycaldescriptionContent"
         android:layout_alignStart="@id/textName"
         android:layout_marginTop="10dp" />
 
@@ -161,10 +131,21 @@
         android:id="@+id/statesSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emergencyContact2Content"
-        android:layout_toEndOf="@id/stateText"
         android:layout_marginTop="8dp"
-        android:entries="@array/spinner_status_contact"/>
+        android:layout_toEndOf="@+id/stateText"
+        android:layout_below="@+id/phisycaldescriptionText"
+        android:entries="@array/spinner_status_contact" />
+
+    <Button
+        android:id="@+id/buttonEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stateText"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="70dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/cafeAzalea"
+        android:text="@string/editar_perfil"/>
 
     <ImageView
         android:id="@+id/flower1"

@@ -1,10 +1,8 @@
-package com.example.azalea
+package com.example.azalea.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import com.example.azalea.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpButtons() {
         binding.buttonLogInMainAct.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
+            val intent = Intent(this, MenuNavigationActivity::class.java)
             startActivity(intent)
         }
 

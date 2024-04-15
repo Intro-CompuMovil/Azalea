@@ -65,4 +65,13 @@
     <string name="ingrese_correo">Ingrese correo:</string>
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="ya_tienes_una_cuenta_inicia_sesi_n">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="emergencia">Emergencia</string>
+    <string name="alertas">Alertas</string>
+    <string name="contactos">Contactos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notifications">Notifications</string>
+    <string name="agregar_contacto">Agregar contacto</string>
+    <string name="cancelar_alerta">Cancelar alerta</string>
+    <string name="editar_perfil">Editar Perfil</string>
 </resources>

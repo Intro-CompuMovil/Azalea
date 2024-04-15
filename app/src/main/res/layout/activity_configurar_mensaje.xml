@@ -4,152 +4,155 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfigurarMensajeActivity"
-    android:background="@color/azalea"
-    android:padding="15dp">
+    tools:context=".activities.ConfigurarMensajeActivity"
+    android:background="@color/azalea">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutMsgConfigAct"
+    <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/relativeLayoutMessageAct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="40dp"
+        android:background="@color/azalea"
+        android:orientation="horizontal"
+        android:elevation="4dp">
 
-        <ImageButton
-            android:id="@+id/imgButtonMenuMsgConfigAct"
-            android:scaleType="centerCrop"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/azalea"
-            app:srcCompat="@drawable/menusi"
-            android:contentDescription="@string/menu_button"/>
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/goBackButtonMessageAct"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            />
 
         <TextView
-            android:id="@+id/titleMenuMsgConfigAct"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/azalea"
+            android:id="@+id/titleMessageAlertTextView"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
             android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:textSize="30sp"
-            android:fontFamily="@font/abril_fatface"
-            android:textColor="@color/cafeAzalea"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            app:cardCornerRadius="150dp"
-            android:layout_height="100dp">
-
-            <ImageView
-                android:id="@+id/imgProfileMsgConfigAct"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/pfp"
-                android:contentDescription="@string/profile_pic"
-                />
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textPersonalizeMsgConfigAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/personalizar_mensaje"
-        android:gravity="center"
-        android:layout_marginTop="60dp"
-        android:textSize="25sp"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/linearLayoutMsgConfigAct"
-        android:textColor="@color/cafeAzalea"
-        />
-
-    <TextView
-        android:id="@+id/textInsertMsgConfigAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ingrese_mensaje_de_alerta"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:textSize="20sp"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/textPersonalizeMsgConfigAct"
-        android:textColor="@color/cafeAzalea"
-        />
-
-    <EditText
-        android:id="@+id/editTextMsgConfigAct"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:ems="10"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
-        android:background="@color/white"
-        android:layout_below="@id/textInsertMsgConfigAct"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="@string/escriba_su_mensaje_aqu"
-        />
-
-    <TextView
-        android:id="@+id/textInsertCancelMsgConfigAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ingrese_mensaje_de_cancelaci_n"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:textSize="20sp"
-        android:fontFamily="@font/abril_fatface"
-        android:layout_below="@id/editTextMsgConfigAct"
-        android:textColor="@color/cafeAzalea"
-        />
-
-    <EditText
-        android:id="@+id/editTextCancelMsgConfigAct"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:ems="10"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
-        android:background="@color/white"
-        android:layout_below="@id/textInsertCancelMsgConfigAct"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="@string/escriba_su_mensaje_aqu"
-        />
-
-    <Button
-        android:id="@+id/buttonSaveMsgConfigAct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCancelMsgConfigAct"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/cafeAzalea"
-        android:gravity="center"
-        android:text="@string/guardar" />
+            android:textColor="@color/black"
+            android:text="@string/personalizar_mensaje"
+            />
+    </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imgViewFlor0"
-        android:layout_width="115dp"
+        android:id="@+id/imgViewFlor0Msg"
+        android:layout_margin="10dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/azalea"
-        android:layout_marginTop="640dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:alpha="0.2" />
 
     <ImageView
-        android:id="@+id/imgViewFlor1"
-        android:layout_width="115dp"
+        android:id="@+id/imgViewFlor1Msg"
+        android:layout_margin="10dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/azalea"
-        android:layout_marginTop="640dp"
         android:alpha="0.2"
-        android:layout_marginStart="295dp"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:scaleX="-1"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayoutMessageAct"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/textInsertMsgConfigAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ingrese_mensaje_de_alerta"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/abril_fatface"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/cafeAzalea"
+                />
+
+            <EditText
+                android:id="@+id/editTextMsgConfigAct"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="10dp"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:background="@color/white"
+                android:layout_below="@id/textInsertMsgConfigAct"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="@string/escriba_su_mensaje_aqu"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/textInsertCancelMsgConfigAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ingrese_mensaje_de_cancelaci_n"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/abril_fatface"
+                android:layout_below="@id/editTextMsgConfigAct"
+                android:textColor="@color/cafeAzalea"
+                />
+
+            <EditText
+                android:id="@+id/editTextCancelMsgConfigAct"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="10dp"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:background="@color/white"
+                android:layout_below="@id/textInsertCancelMsgConfigAct"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="@string/escriba_su_mensaje_aqu"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/buttonSaveMsgConfigAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_below="@id/editTextCancelMsgConfigAct"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/cafeAzalea"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="@string/guardar" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 
 
 
