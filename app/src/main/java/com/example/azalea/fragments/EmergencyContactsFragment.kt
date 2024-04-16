@@ -33,7 +33,7 @@ class EmergencyContactsFragment : Fragment() {
     }
 
     private fun loadContacts(): Cursor{
-        // Load contacts from the database
+        // TODO Load contacts from the database
         val cursor = MatrixCursor(arrayOf("_id", "name", "phone"))
         cursor.addRow(arrayOf("0", "Alba Milena", "3001234567"))
         cursor.addRow(arrayOf("0", "Nahiara Majanaim", "3007654321"))

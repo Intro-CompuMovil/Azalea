@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.azalea.fragments.PanicoFragment
 import com.example.azalea.R
 import com.example.azalea.databinding.ActivityMenuNavigationBinding
+import com.example.azalea.fragments.EmergencyAlertsFragment
 import com.example.azalea.fragments.EmergencyContactsFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -57,7 +58,7 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 return true
             }
             R.id.buttonAlertas -> {
-                //openFragment(EmergencyContactsFragment(), "Alertas de emergencia")
+                openFragment(EmergencyAlertsFragment(), "Alertas de emergencia")
                 return true
             }
             R.id.buttonContactos -> {
