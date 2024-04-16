@@ -30,7 +30,12 @@ class PanicoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpButtonsWithoutPermissions()
+
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            setUpButtonsWithPermissions()
+        } else {
+            setUpButtonsWithoutPermissions()
+        }
     }
 
 

@@ -44,6 +44,8 @@ class CancelarActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Authentication succeeded", Toast.LENGTH_SHORT).show()
                 }
                 // Continue with your action after successful authentication
+                val intent = Intent(applicationContext, MenuNavigationActivity::class.java)
+                startActivity(intent)
             }
 
             override fun onAuthenticationFailed() {
