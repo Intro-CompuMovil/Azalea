@@ -18,14 +18,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
-    <ImageView
+
+    <ImageButton
         android:id="@+id/profileImage"
-        android:layout_width="71dp"
-        android:layout_height="63dp"
-        android:layout_below="@id/titleProfile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/pfp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/azalea"
+
+        />
 
     <TextView
         android:id="@+id/textName"
