@@ -14,7 +14,7 @@
         android:text="@string/registrar_contacto_de_emergencia"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/cafeAzalea"
+        android:textColor="@color/SecondaryAzalea"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:fontFamily="@font/abril_fatface"
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/numero_del_contacto"
-        android:textColor="@color/cafeAzalea"
+        android:textColor="@color/SecondaryAzalea"
         android:textSize="18sp"
         android:layout_below="@id/titleRegister"
         android:layout_marginStart="20dp"
@@ -101,7 +101,7 @@
         android:layout_toEndOf="@id/labelContactNumber"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:backgroundTint="@color/cafeAzalea"
+        android:backgroundTint="@color/SecondaryAzalea"
         android:fontFamily="@font/abril_fatface"
         />
 
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nombre_del_contacto"
-        android:textColor="@color/cafeAzalea"
+        android:textColor="@color/SecondaryAzalea"
         android:textSize="18sp"
         android:layout_below="@id/btnSelectContact"
         android:layout_marginStart="20dp"
@@ -133,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/relaci_n"
-        android:textColor="@color/cafeAzalea"
+        android:textColor="@color/SecondaryAzalea"
         android:textSize="18sp"
         android:layout_below="@id/editPhoneNumber"
         android:layout_marginStart="20dp"
@@ -159,7 +159,7 @@
         android:layout_below="@id/editRelation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/cafeAzalea"
+        android:backgroundTint="@color/SecondaryAzalea"
         android:fontFamily="@font/abril_fatface"
         />
 

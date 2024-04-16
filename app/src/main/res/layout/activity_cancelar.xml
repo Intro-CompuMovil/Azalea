@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CancelarActivity"
-    android:background="@color/azalea">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_alignParentTop="true"
@@ -42,6 +42,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:text="@string/cancelar_alerta"
+            android:textStyle="bold"
             />
 
     </RelativeLayout>
@@ -87,7 +88,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/abril_fatface"
                 android:layout_alignParentTop="true"
-                android:textColor="@color/cafeAzalea"
+                android:textColor="@color/black_ds"
 
                 />
 
@@ -99,7 +100,7 @@
                 android:inputType="number"
                 android:layout_below="@id/textCodeVerifyCancelAct"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/template_roundcorner_namepass"
+                android:background="@drawable/template_edittext_limits"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textColor="@color/black"
@@ -116,7 +117,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/abril_fatface"
                 android:layout_below="@id/codeTextFieldCancelAct"
-                android:textColor="@color/cafeAzalea"
+                android:textColor="@color/black_ds"
                 />
 
             <RadioGroup
@@ -158,9 +159,10 @@
                 android:layout_marginEnd="70dp"
                 android:layout_below="@id/radioGroupDecisionCancelAct"
                 android:layout_marginTop="50dp"
-                android:backgroundTint="@color/cafeAzalea"
+                android:backgroundTint="@color/SecondaryAzalea"
                 android:gravity="center"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="@string/enviar" />
 
         </RelativeLayout>

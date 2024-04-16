@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.EmergencyContactsFragment"
-    android:background="@color/azalea">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listViewEmergencyContacts"
-            android:divider="@color/azaleaOscuro"
+            android:divider="@color/gray"
             android:dividerHeight="1dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -31,7 +31,7 @@
             android:layout_marginStart="70dp"
             android:layout_marginEnd="70dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/cafeAzalea"
+            android:backgroundTint="@color/SecondaryAzalea"
             android:gravity="center"
             android:text="@string/agregar_contacto"
             android:textSize="18sp"

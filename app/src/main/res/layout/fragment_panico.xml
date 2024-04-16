@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.PanicoFragment"
-    android:background="@color/azalea">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_marginTop="40dp"
@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imgButtonPanic"
                 android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1:1"
-                android:background="@drawable/template_circlebutton"
+                android:background="@drawable/template_emergency_button"
                 android:src="@drawable/baseline_warning_triangle_solid"
                 android:layout_centerInParent="true"
                 android:layout_margin="20dp"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/cafeAzalea"
+                android:backgroundTint="@color/SecondaryAzalea"
                 android:gravity="center"
                 android:text="@string/cancelar"
                 android:textSize="18sp"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/cafeAzalea"
+                android:backgroundTint="@color/SecondaryAzalea"
                 android:gravity="center"
                 android:text="@string/personalizar_mensaje"
                 android:textSize="18sp"

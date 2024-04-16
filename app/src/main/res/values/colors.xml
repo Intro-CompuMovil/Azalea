@@ -3,8 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="azalea">#F9D0D7</color>
-    <color name="cafeAzalea">#A7606B</color>
-    <color name="azaleaOscuro">#F3A1AE</color>
+    <color name="SecondaryAzalea">#A7606B</color>
+    <color name="TertiaryAzalea">#F3A1AE</color>
     <color name="cafeClaro">#D2B48C</color>
     <color name="cafeOscuro">#8B4513</color>
 
@@ -22,5 +22,6 @@
     <color name="purple">#FF800080</color>
     <color name="brown">#FFA52A2A</color>
     <color name="pink">#FFFFC0CB</color>
+    <color name="black_ds">#2D2D2D</color>
 
 </resources>

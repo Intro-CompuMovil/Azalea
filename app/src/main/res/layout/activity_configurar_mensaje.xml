@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ConfigurarMensajeActivity"
-    android:background="@color/azalea">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_alignParentTop="true"
@@ -42,6 +42,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:text="@string/personalizar_mensaje"
+            android:textStyle="bold"
             />
     </RelativeLayout>
 
@@ -88,7 +89,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/abril_fatface"
                 android:layout_alignParentTop="true"
-                android:textColor="@color/cafeAzalea"
+                android:textColor="@color/black_ds"
                 />
 
             <EditText
@@ -98,7 +99,7 @@
                 android:padding="10dp"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
-                android:background="@color/white"
+                android:background="@drawable/template_edittext_limits"
                 android:layout_below="@id/textInsertMsgConfigAct"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
@@ -116,7 +117,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/abril_fatface"
                 android:layout_below="@id/editTextMsgConfigAct"
-                android:textColor="@color/cafeAzalea"
+                android:textColor="@color/black_ds"
                 />
 
             <EditText
@@ -126,7 +127,7 @@
                 android:padding="10dp"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
-                android:background="@color/white"
+                android:background="@drawable/template_edittext_limits"
                 android:layout_below="@id/textInsertCancelMsgConfigAct"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
@@ -143,16 +144,15 @@
                 android:layout_below="@id/editTextCancelMsgConfigAct"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="50dp"
-                android:backgroundTint="@color/cafeAzalea"
+                android:backgroundTint="@color/SecondaryAzalea"
                 android:gravity="center"
                 android:textSize="18sp"
-                android:text="@string/guardar" />
+                android:text="@string/guardar"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
 
     </ScrollView>
-
-
 
 
 
