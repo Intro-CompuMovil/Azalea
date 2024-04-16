@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.azalea.R
+import com.example.azalea.activities.MapsOSMActivity
 import com.example.azalea.activities.MenuNavigationActivity
 import com.example.azalea.adapters.EmergencyContactsAdapter
 import com.example.azalea.databinding.FragmentEmergencyAlertsBinding
@@ -52,9 +53,9 @@ class EmergencyAlertsFragment : Fragment() {
             bundle.putString("latitude", latitude)
             bundle.putString("longitude", longitude)
 
-            //val intent = Intent(requireContext(), MapActivity::class.java)
-            //intent.putExtras(bundle)
-            //startActivity(intent)
+            val intent = Intent(requireContext(), MapsOSMActivity::class.java)
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
     }
 }
