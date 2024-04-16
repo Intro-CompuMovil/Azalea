@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/arrow_back_ios_new/baseline_arrow_back_ios_new_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/emoji_people/baseline_emoji_people_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="baseline_arrow_back_ios_new_24" />
+                            <entry key="outputName" value="baseline_emoji_people_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Descargas/bell.svg" />
                           </map>
                         </option>

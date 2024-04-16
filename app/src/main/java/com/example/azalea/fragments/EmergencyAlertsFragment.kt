@@ -50,8 +50,8 @@ class EmergencyAlertsFragment : Fragment() {
             val latitude = cursor.getString(2).split(",")[0]
             val longitude = cursor.getString(2).split(",")[1]
             val bundle = Bundle()
-            bundle.putString("latitude", latitude)
-            bundle.putString("longitude", longitude)
+            bundle.putDouble("latitude", latitude.toDouble())
+            bundle.putDouble("longitude", longitude.toDouble())
 
             val intent = Intent(requireContext(), MapsOSMActivity::class.java)
             intent.putExtras(bundle)
