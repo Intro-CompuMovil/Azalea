@@ -25,11 +25,10 @@
     <string name="perfil">Perfil</string>
     <string name="registrar_datos_basicos">Registrar datos basicos</string>
     <string name="registrar_contacto_de_emegencia">Registrar contacto de emegencia</string>
-    <string name="rh">RH:</string>
+    <string name="rh">RH</string>
     <string name="telefono">Telefono:</string>
     <string name="correo">Correo:</string>
     <string name="nombre_completo">Nombre completo</string>
-    <string name="descripci_n_f_sica">Descripción física:</string>
     <string name="estado">Estado:</string>
     <string name="contactos_de_emergencia">Contactos de emergencia:</string>
     <string name="nombre">Nombre</string>
@@ -52,7 +51,7 @@
     <string name="introduzca_su_color_de_pelo">Introduzca su color de pelo</string>
     <string name="color_de_pelo">Color de pelo:</string>
     <string name="introduzca_su_peso">Introduzca su peso</string>
-    <string name="peso">Peso:</string>
+    <string name="peso">Peso</string>
     <string name="introduzca_su_estatura">Introduzca su estatura</string>
     <string name="estatura">Estatura:</string>
     <string name="introduzca_su_tipo_de_sangre">Introduzca su tipo de sangre</string>
@@ -74,4 +73,13 @@
     <string name="agregar_contacto">Agregar contacto</string>
     <string name="cancelar_alerta">Cancelar alerta</string>
     <string name="editar_perfil">Editar Perfil</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="cumplea_os">Cumpleaños</string>
+    <string name="altura">Altura</string>
+    <string name="ruler">Ruler</string>
+    <string name="weight">Weight</string>
+    <string name="n_a">N/A</string>
+    <string name="descripci_n_f_sica">Descripción física</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="logout">Logout</string>
 </resources>
