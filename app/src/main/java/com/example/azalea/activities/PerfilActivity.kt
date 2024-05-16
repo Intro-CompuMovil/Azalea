@@ -26,30 +26,44 @@ import java.io.FileOutputStream
 
 class PerfilActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
-    private lateinit var profileImage: ImageButton
+    private lateinit var binding: ActivityPerfilBinding
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        profileImage.setImageURI(uri)
+        binding.profileImage.setImageURI(uri)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil)
+        binding = ActivityPerfilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setUpButtons()
+
         preferences = getSharedPreferences("myPrefs", MODE_PRIVATE)
 
         // Cargar la imagen de perfil si existe
         val imagePath = preferences.getString("imagePath", null)
 
-        profileImage = findViewById(R.id.profileImage)
-
         if (imagePath != null) {
-            profileImage.setImageURI(Uri.parse(imagePath))
+            binding.profileImage.setImageURI(Uri.parse(imagePath))
         }
 
-        profileImage.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             showMediaOptions()
         }
 
+    }
+
+    private fun setUpButtons() {
+        binding.goBackButtonLayoutProfile.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.editProfileButton.setOnClickListener {
+            val intent = Intent(this, AddBasicDataActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showMediaOptions() {
@@ -104,11 +118,11 @@ class PerfilActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             saveImageToGallery(imageBitmap)
-            profileImage.setImageBitmap(imageBitmap)
+            binding.profileImage.setImageBitmap(imageBitmap)
         } else if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                profileImage.setImageURI(selectedImageUri)
+                binding.profileImage.setImageURI(selectedImageUri)
                 saveImageToGallery(selectedImageUri)
             }
         }

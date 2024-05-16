@@ -55,9 +55,9 @@
     <string name="introduzca_su_estatura">Introduzca su estatura</string>
     <string name="estatura">Estatura:</string>
     <string name="introduzca_su_tipo_de_sangre">Introduzca su tipo de sangre</string>
-    <string name="tipo_de_sangre">Tipo de sangre:</string>
+    <string name="tipo_de_sangre">Tipo de Sangre</string>
     <string name="selecciona_una_fecha">Selecciona una fecha</string>
-    <string name="fecha_de_nacimiento">Fecha de nacimiento:</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
     <string name="introduzca_su_nombre_completo">Introduzca su nombre completo</string>
     <string name="nombre_dp">Nombre:</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
