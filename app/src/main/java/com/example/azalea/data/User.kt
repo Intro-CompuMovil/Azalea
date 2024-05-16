@@ -12,5 +12,7 @@ data class User(
     val emergency: Boolean = false,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
-    val emergencyContacts: List<String> = emptyList()
+    val emergencyContacts: List<String> = emptyList(),
+    val emergencyContactFor: List<String> = emptyList(),
+    val emergencyCode: Int = -1,
 )

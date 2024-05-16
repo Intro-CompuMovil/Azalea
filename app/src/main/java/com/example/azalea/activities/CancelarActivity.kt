@@ -1,5 +1,6 @@
 package com.example.azalea.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricPrompt
@@ -10,9 +11,12 @@ import androidx.core.content.ContextCompat
 import com.example.azalea.data.PermissionsCodes.Companion.BIOMETRIC_PERMISSION_CODE
 import java.util.concurrent.Executors
 import com.example.azalea.databinding.ActivityCancelarBinding
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class CancelarActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCancelarBinding
+    private val databaseRef = Firebase.database.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,16 @@ class CancelarActivity : AppCompatActivity() {
         checkPermissionForBiometric(this)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpButtons() {
+        binding.switchCancelAct.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.text = "Sí"
+            } else {
+                buttonView.text = "No"
+            }
+        }
+
         binding.goBackButtonCancelAct.setOnClickListener {
             val intent = Intent(this, MenuNavigationActivity::class.java)
             startActivity(intent)
@@ -63,7 +76,11 @@ class CancelarActivity : AppCompatActivity() {
             .build()
 
         binding.buttonSendCancelAct.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
+            if(checkForConfirmation()) {
+                biometricPrompt.authenticate(promptInfo)
+            } else {
+                Toast.makeText(this, "Confirme su cancelación con el selector", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -74,6 +91,15 @@ class CancelarActivity : AppCompatActivity() {
         }
 
         binding.buttonSendCancelAct.isEnabled = false
+    }
+
+    private fun checkForConfirmation(): Boolean {
+        val confirmation = binding.switchCancelAct.isChecked
+
+        // Internally checks if code was correct
+
+
+        return confirmation
     }
 
     private fun checkPermissionForBiometric(activity: AppCompatActivity) {

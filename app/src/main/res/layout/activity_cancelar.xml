@@ -120,36 +120,23 @@
                 android:textColor="@color/black_ds"
                 />
 
-            <RadioGroup
-                android:id="@+id/radioGroupDecisionCancelAct"
-                android:layout_width="match_parent"
+            <Switch
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
                 android:layout_below="@id/textViewChoiceCancelAct"
-                android:outlineSpotShadowColor="@color/white"
-                android:outlineAmbientShadowColor="@color/black">
-
-                <RadioButton
-                    android:id="@+id/radioButtonYesCancelAct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/s"/>
-
-                <RadioButton
-                    android:id="@+id/radioButtonNoCancelAct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/no"/>
-
-            </RadioGroup>
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/switchCancelAct"
+                android:thumbTint="@color/SecondaryAzalea"
+                android:trackTint="@color/SecondaryAzalea"
+                android:text="@string/no"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/abril_fatface"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Button
                 android:id="@+id/buttonSendCancelAct"
@@ -157,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="70dp"
                 android:layout_marginEnd="70dp"
-                android:layout_below="@id/radioGroupDecisionCancelAct"
+                android:layout_below="@id/switchCancelAct"
                 android:layout_marginTop="50dp"
                 android:backgroundTint="@color/SecondaryAzalea"
                 android:gravity="center"
