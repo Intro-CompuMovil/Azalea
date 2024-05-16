@@ -7,6 +7,7 @@ data class User(
     val bloodType: String = "",
     val weight: Double = 0.0,
     val height: Double = 0.0,
+    val description: String = "",
     val available: Boolean = true,
     val emergency: Boolean = false,
     val latitude: Double = 0.0,

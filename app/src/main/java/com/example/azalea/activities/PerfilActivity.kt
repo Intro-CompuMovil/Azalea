@@ -1,7 +1,6 @@
 package com.example.azalea.activities
 
 import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,20 +12,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.ImageButton
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.azalea.R
-import com.example.azalea.data.PermissionsCodes.Companion.CAMERA_PERMISSION_CODE
+import com.example.azalea.data.User
+import com.example.azalea.databinding.ActivityAddBasicDataBinding
 import com.example.azalea.databinding.ActivityPerfilBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.database.database
+import com.google.firebase.storage.storage
 import java.io.File
 import java.io.FileOutputStream
 
 class PerfilActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityPerfilBinding
+    private val storageRef = Firebase.storage.reference
+    private val databaseRef = Firebase.database.reference
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         binding.profileImage.setImageURI(uri)
     }
@@ -38,20 +44,14 @@ class PerfilActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpButtons()
-
+        setUpInformation()
         preferences = getSharedPreferences("myPrefs", MODE_PRIVATE)
+        reloadImageFromFirebase()
+    }
 
-        // Cargar la imagen de perfil si existe
-        val imagePath = preferences.getString("imagePath", null)
-
-        if (imagePath != null) {
-            binding.profileImage.setImageURI(Uri.parse(imagePath))
-        }
-
-        binding.profileImage.setOnClickListener {
-            showMediaOptions()
-        }
-
+    override fun onResume() {
+        super.onResume()
+        setUpInformation()
     }
 
     private fun setUpButtons() {
@@ -63,6 +63,58 @@ class PerfilActivity : AppCompatActivity() {
         binding.editProfileButton.setOnClickListener {
             val intent = Intent(this, AddBasicDataActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.profileImage.setOnClickListener {
+            showMediaOptions()
+        }
+
+        // Listen for when the spinner is changed of state
+        binding.profileStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val status = parent?.getItemAtPosition(position).toString()
+                if (status == "Disponible") {
+                    binding.profileStatusIcon.setImageResource(android.R.drawable.presence_online)
+                } else {
+                    binding.profileStatusIcon.setImageResource(android.R.drawable.presence_busy)
+                }
+
+                // Update on firebase database
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
+    }
+
+    private fun setUpInformation() {
+        val uid = Firebase.auth.currentUser?.uid
+        if (uid != null) {
+            val userRef = databaseRef.child(uid)
+            userRef.get().addOnSuccessListener {
+                if (it.exists()) {
+                    val user = it.getValue(User::class.java)
+                    if (user != null) {
+                        binding.profileName.text = user.name
+                        binding.profileEmail.text = user.email
+                        binding.profileInfoBirthdate.text = user.birthDate
+                        binding.profileInfoRH.text = user.bloodType
+                        binding.profileInfoWeight.text = user.weight.toString()
+                        binding.profileInfoHeight.text = user.height.toString()
+                        binding.profileInfoExtra.text = user.description
+
+                        if (user.available) {
+                            binding.profileStatus.setSelection(0)
+                            binding.profileStatusIcon.setImageResource(android.R.drawable.presence_online)
+                        } else {
+                            binding.profileStatus.setSelection(1)
+                            binding.profileStatusIcon.setImageResource(android.R.drawable.presence_busy)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -117,20 +169,22 @@ class PerfilActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            saveImageToGallery(imageBitmap)
-            binding.profileImage.setImageBitmap(imageBitmap)
+            saveImageToFirebase(imageBitmap)
+            reloadImageFromFirebase()
         } else if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                binding.profileImage.setImageURI(selectedImageUri)
-                saveImageToGallery(selectedImageUri)
+                saveImageToFirebase(selectedImageUri)
+                reloadImageFromFirebase()
             }
         }
     }
 
-    private fun saveImageToGallery(bitmap: Bitmap) {
+    private fun saveImageToFirebase(bitmap: Bitmap) {
+        // Get the current uid and save image acordingly
+        val uid = Firebase.auth.currentUser?.uid ?: return
         val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-        val imageFile = File(imagesDir, "profile_image_${System.currentTimeMillis()}.jpg")
+        val imageFile = File(imagesDir, "$uid.jpg")
         val outputStream = FileOutputStream(imageFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         outputStream.flush()
@@ -141,13 +195,38 @@ class PerfilActivity : AppCompatActivity() {
         val editor = preferences.edit()
         editor.putString("imagePath", imageFile.absolutePath)
         editor.apply()
+
+        // Subir la imagen a Firebase Storage
+        val imageRef = storageRef.child("pfp/$uid.jpg")
+        val imageUri = Uri.fromFile(imageFile)
+        imageRef.putFile(imageUri)
     }
 
-    private fun saveImageToGallery(imageUri: Uri) {
+    private fun saveImageToFirebase(imageUri: Uri) {
         // Guardar la ruta de la imagen en SharedPreferences
         val editor = preferences.edit()
         editor.putString("imagePath", imageUri.toString())
         editor.apply()
+
+        // Subir la imagen a Firebase Storage
+        val uid = Firebase.auth.currentUser?.uid ?: return
+        val imageRef = storageRef.child("pfp/$uid.jpg")
+        imageRef.putFile(imageUri)
+    }
+
+    private fun reloadImageFromFirebase() {
+        // Get the uid of the current user and search for the corresponding image
+        val uid = Firebase.auth.currentUser?.uid
+        if (uid != null) {
+            val imageRef = storageRef.child("pfp/$uid.jpg")
+            MenuNavigationActivity.tempFile = File.createTempFile(uid, "jpg")
+            imageRef.getFile(MenuNavigationActivity.tempFile).addOnSuccessListener {
+                val imageUri = Uri.fromFile(MenuNavigationActivity.tempFile)
+                binding.profileImage.setImageURI(imageUri)
+            }.addOnFailureListener {
+                Toast.makeText(this, "Error al cargar la imagen de perfil", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     companion object {

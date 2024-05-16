@@ -2,7 +2,7 @@
 <resources>
     <string-array name="spinner_status_contact">
         <item>Disponible</item>
-        <item>No disponible</item>
+        <item>Ocupado</item>
     </string-array>
     <string-array name="spinner_rh">
         <item>A+</item>
