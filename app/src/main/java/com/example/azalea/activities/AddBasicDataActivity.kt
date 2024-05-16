@@ -49,11 +49,6 @@ class AddBasicDataActivity : AppCompatActivity() {
 
             datePickerDialog.show()
         }
-
-        val bloodTypes = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
-        // Set up autocomplete text view
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodTypes)
-        binding.spinnerAutoCompleteTextView.setAdapter(adapter)
     }
 
     private fun setUpButtons() {

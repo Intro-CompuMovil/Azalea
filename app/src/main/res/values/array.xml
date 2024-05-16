@@ -4,4 +4,14 @@
         <item>Disponible</item>
         <item>No disponible</item>
     </string-array>
+    <string-array name="spinner_rh">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
 </resources>
