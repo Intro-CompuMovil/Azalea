@@ -17,7 +17,9 @@ import com.example.azalea.fragments.EmergencyAlertsFragment
 import com.example.azalea.fragments.EmergencyContactsFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import java.io.File
 
@@ -37,8 +39,12 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         setUpButtons()
         setUpFragmentNavigation()
-        loadImageFromFirebase()
         openFragment(PanicoFragment(), "Botón de pánico")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        reloadImageFromFirebase()
     }
 
     private fun setUpButtons() {
@@ -90,18 +96,15 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         fragmentTransaction.commit()
     }
 
-    private fun loadImageFromFirebase() {
+    private fun reloadImageFromFirebase() {
         // Get the uid of the current user and search for the corresponding image
-        val uid = Firebase.auth.currentUser?.uid
-        if (uid != null) {
-            val imageRef = storageRef.child("pfp/$uid.jpg")
-            tempFile = File.createTempFile(uid, "jpg")
-            imageRef.getFile(tempFile).addOnSuccessListener {
-                val imageUri = Uri.fromFile(tempFile)
-                binding.pfpButton.setImageURI(imageUri)
-            }.addOnFailureListener {
-                Toast.makeText(this, "Error al cargar la imagen de perfil", Toast.LENGTH_SHORT).show()
-            }
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        val storageRef = FirebaseStorage.getInstance().reference.child("pfp/$uid")
+        val tempFile = File.createTempFile(uid, "jpg")
+
+        storageRef.getFile(tempFile).addOnSuccessListener {
+            val imageUri = Uri.fromFile(tempFile)
+            binding.pfpButton.setImageURI(imageUri)
         }
     }
 }

@@ -22,17 +22,19 @@ import com.example.azalea.data.User
 import com.example.azalea.databinding.ActivityAddBasicDataBinding
 import com.example.azalea.databinding.ActivityPerfilBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.database
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
 class PerfilActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityPerfilBinding
-    private val storageRef = Firebase.storage.reference
-    private val databaseRef = Firebase.database.reference
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         binding.profileImage.setImageURI(uri)
     }
@@ -44,19 +46,18 @@ class PerfilActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpButtons()
-        setUpInformation()
         preferences = getSharedPreferences("myPrefs", MODE_PRIVATE)
-        reloadImageFromFirebase()
     }
 
     override fun onResume() {
         super.onResume()
         setUpInformation()
+        reloadImageFromFirebase()
     }
 
     private fun setUpButtons() {
         binding.goBackButtonLayoutProfile.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MenuNavigationActivity::class.java)
             startActivity(intent)
         }
 
@@ -80,38 +81,47 @@ class PerfilActivity : AppCompatActivity() {
                 }
 
                 // Update on firebase database
-
+                FirebaseDatabase.getInstance().getReference("Users")
+                    .child(FirebaseAuth.getInstance().currentUser?.uid!!)
+                    .child("available")
+                    .setValue(status == "Disponible")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
             }
         }
+
+        binding.linearLayoutLogOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setUpInformation() {
-        val uid = Firebase.auth.currentUser?.uid
-        if (uid != null) {
-            val userRef = databaseRef.child(uid)
-            userRef.get().addOnSuccessListener {
-                if (it.exists()) {
-                    val user = it.getValue(User::class.java)
-                    if (user != null) {
-                        binding.profileName.text = user.name
-                        binding.profileEmail.text = user.email
-                        binding.profileInfoBirthdate.text = user.birthDate
-                        binding.profileInfoRH.text = user.bloodType
-                        binding.profileInfoWeight.text = user.weight.toString()
-                        binding.profileInfoHeight.text = user.height.toString()
-                        binding.profileInfoExtra.text = user.description
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(uid)
 
-                        if (user.available) {
-                            binding.profileStatus.setSelection(0)
-                            binding.profileStatusIcon.setImageResource(android.R.drawable.presence_online)
-                        } else {
-                            binding.profileStatus.setSelection(1)
-                            binding.profileStatusIcon.setImageResource(android.R.drawable.presence_busy)
-                        }
+        userRef.get().addOnSuccessListener {
+            if (it.exists()) {
+                val user = it.getValue(User::class.java)
+                if (user != null) {
+                    binding.profileName.text = user.name
+                    binding.profileEmail.text = user.email
+                    binding.profileInfoBirthdate.text = user.birthDate
+                    binding.profileInfoRH.text = user.bloodType
+                    binding.profileInfoWeight.text = user.weight.toString()
+                    binding.profileInfoHeight.text = user.height.toString()
+                    binding.profileInfoExtra.text = user.description
+
+                    if (user.available) {
+                        binding.profileStatus.setSelection(0)
+                        binding.profileStatusIcon.setImageResource(android.R.drawable.presence_online)
+                    } else {
+                        binding.profileStatus.setSelection(1)
+                        binding.profileStatusIcon.setImageResource(android.R.drawable.presence_busy)
                     }
                 }
             }
@@ -131,7 +141,13 @@ class PerfilActivity : AppCompatActivity() {
                         requestCameraPermission()
                     }
                 }
-                1 -> pickMedia.launch("image/*")
+                1 -> {
+                    if (checkStoragePermission()) {
+                        pickMedia.launch("image/*")
+                    } else {
+                        requestStoragePermission()
+                    }
+                }
             }
         }
         builder.show()
@@ -141,10 +157,20 @@ class PerfilActivity : AppCompatActivity() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 
+    private fun checkStoragePermission(): Boolean {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    }
+
     private fun requestCameraPermission() {
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.CAMERA),
             CAMERA_PERMISSION_CODE)
+    }
+
+    private fun requestStoragePermission() {
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            STORAGE_PERMISSION_CODE)
     }
 
     private fun openCamera() {
@@ -162,70 +188,61 @@ class PerfilActivity : AppCompatActivity() {
                     Toast.makeText(this, "Permiso de cámara denegado.", Toast.LENGTH_SHORT).show()
                 }
             }
+            STORAGE_PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickMedia.launch("image/*")
+                } else {
+                    Toast.makeText(this, "Permiso de almacenamiento denegado.", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        var imageUri: Uri? = null
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            saveImageToFirebase(imageBitmap)
-            reloadImageFromFirebase()
+            imageUri = getImageUriFromBitmap(imageBitmap)
         } else if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                saveImageToFirebase(selectedImageUri)
-                reloadImageFromFirebase()
+                imageUri = selectedImageUri
             }
+        }
+
+        if (imageUri != null) {
+            uploadImageToFirebase(imageUri)
         }
     }
 
-    private fun saveImageToFirebase(bitmap: Bitmap) {
-        // Get the current uid and save image acordingly
-        val uid = Firebase.auth.currentUser?.uid ?: return
-        val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-        val imageFile = File(imagesDir, "$uid.jpg")
-        val outputStream = FileOutputStream(imageFile)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        outputStream.flush()
-        outputStream.close()
-        MediaScannerConnection.scanFile(this, arrayOf(imageFile.absolutePath), null, null)
-
-        // Guardar la ruta de la imagen en SharedPreferences
-        val editor = preferences.edit()
-        editor.putString("imagePath", imageFile.absolutePath)
-        editor.apply()
-
-        // Subir la imagen a Firebase Storage
-        val imageRef = storageRef.child("pfp/$uid.jpg")
-        val imageUri = Uri.fromFile(imageFile)
-        imageRef.putFile(imageUri)
+    private fun getImageUriFromBitmap(bitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "Title", null)
+        return Uri.parse(path)
     }
 
-    private fun saveImageToFirebase(imageUri: Uri) {
-        // Guardar la ruta de la imagen en SharedPreferences
-        val editor = preferences.edit()
-        editor.putString("imagePath", imageUri.toString())
-        editor.apply()
-
-        // Subir la imagen a Firebase Storage
-        val uid = Firebase.auth.currentUser?.uid ?: return
-        val imageRef = storageRef.child("pfp/$uid.jpg")
-        imageRef.putFile(imageUri)
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        val imageRef = FirebaseStorage.getInstance().reference.child("pfp/$uid")
+        imageRef.putFile(imageUri).addOnSuccessListener {
+            Toast.makeText(this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show()
+            reloadImageFromFirebase()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error al subir la imagen", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun reloadImageFromFirebase() {
         // Get the uid of the current user and search for the corresponding image
-        val uid = Firebase.auth.currentUser?.uid
-        if (uid != null) {
-            val imageRef = storageRef.child("pfp/$uid.jpg")
-            MenuNavigationActivity.tempFile = File.createTempFile(uid, "jpg")
-            imageRef.getFile(MenuNavigationActivity.tempFile).addOnSuccessListener {
-                val imageUri = Uri.fromFile(MenuNavigationActivity.tempFile)
-                binding.profileImage.setImageURI(imageUri)
-            }.addOnFailureListener {
-                Toast.makeText(this, "Error al cargar la imagen de perfil", Toast.LENGTH_SHORT).show()
-            }
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        val storageRef = FirebaseStorage.getInstance().reference.child("pfp/$uid")
+        val tempFile = File.createTempFile(uid, "jpg")
+
+        storageRef.getFile(tempFile).addOnSuccessListener {
+            val imageUri = Uri.fromFile(tempFile)
+            binding.profileImage.setImageURI(imageUri)
         }
     }
 
@@ -233,5 +250,6 @@ class PerfilActivity : AppCompatActivity() {
         private const val CAMERA_PERMISSION_CODE = 100
         private const val REQUEST_IMAGE_CAPTURE = 101
         private const val REQUEST_SELECT_IMAGE = 102
+        private const val STORAGE_PERMISSION_CODE = 103
     }
 }

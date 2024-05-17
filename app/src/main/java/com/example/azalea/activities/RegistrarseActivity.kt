@@ -104,6 +104,10 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        Toast.makeText(
+            baseContext, "Registrado exitosamente",
+            Toast.LENGTH_SHORT
+        ).show()
         startActivity(intent)
     }
 
