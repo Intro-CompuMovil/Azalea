@@ -60,6 +60,7 @@ class PanicoFragment : Fragment() {
         _binding?.imgButtonPanic?.setOnClickListener {
             Toast.makeText(requireContext(), "Panic button pressed", Toast.LENGTH_SHORT).show()
             _binding?.buttonCancelarPanic?.isEnabled = true
+            // TODO Start getting location until otherwise stated & change the emergency to true on database
         }
     }
 

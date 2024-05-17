@@ -97,7 +97,8 @@ class CancelarActivity : AppCompatActivity() {
         val confirmation = binding.switchCancelAct.isChecked
 
         // Internally checks if code was correct
-
+        // TODO Check for the code and compare it with the one in the database / must continue flow either way
+        // If code is not correct should not change the state of the emergency on the database
 
         return confirmation
     }

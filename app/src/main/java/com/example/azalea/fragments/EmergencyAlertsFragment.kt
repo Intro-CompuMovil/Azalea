@@ -33,7 +33,8 @@ class EmergencyAlertsFragment : Fragment() {
     }
 
     private fun loadAlerts(): Cursor{
-        // TODO Load alerts from the database
+        // TODO Listen to the changes on the alerts given that user is available
+        // TODO Must sent notifications if user is outside the app (must use foreground service)
         val cursor = MatrixCursor(arrayOf("_id", "name", "location"))
         cursor.addRow(arrayOf("0", "Mandela Doe", "4.722842741458784, -74.03903236148713"))
         return cursor

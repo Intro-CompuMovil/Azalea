@@ -69,6 +69,7 @@ class MapsOSMActivity : AppCompatActivity() {
 
     private fun obtainEndPoint() {
         // Recibir el Bundle de coordenadas finales
+        // TODO Must be changed so the endpoint is received from the database with an event listener for any changes
         val bundle = intent.extras
         endPoint = if (bundle != null) {
             val latitude = bundle.getDouble("latitude", 0.0)

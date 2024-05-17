@@ -48,6 +48,7 @@ class EmergencyContactsFragment : Fragment() {
         binding.listViewEmergencyContacts.setOnItemClickListener { _, _, position, _ ->
             cursor.moveToPosition(position)
             Toast.makeText(requireContext(), "Este es un contacto", Toast.LENGTH_SHORT).show()
+            // TODO Show the contact information correctly
         }
     }
 

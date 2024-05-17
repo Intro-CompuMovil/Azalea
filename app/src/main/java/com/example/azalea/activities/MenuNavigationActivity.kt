@@ -40,6 +40,7 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         setUpButtons()
         setUpFragmentNavigation()
         openFragment(PanicoFragment(), "Botón de pánico")
+        // TODO If user first login then show a popup to ask for the emergency code
     }
 
     override fun onResume() {
