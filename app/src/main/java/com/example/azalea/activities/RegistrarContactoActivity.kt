@@ -2,14 +2,21 @@ package com.example.azalea.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.database.MatrixCursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.example.azalea.R
+import com.example.azalea.adapters.AddEmergencyContactsAdapter
+import com.example.azalea.adapters.EmergencyContactsAdapter
 import com.example.azalea.data.PermissionsCodes.Companion.CONTACTS_PERMISSION_CODE
 import com.example.azalea.databinding.ActivityRegistrarContactoBinding
+import com.google.firebase.database.FirebaseDatabase
 
 class RegistrarContactoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrarContactoBinding
@@ -18,80 +25,35 @@ class RegistrarContactoActivity : AppCompatActivity() {
         binding = ActivityRegistrarContactoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpButtonsWithoutPermissions()
+        setUpListView()
+        // TODO Add option to search for contacts with their emails (filter the users)
     }
 
-    private fun checkPermissionForContacts() {
-        when{
-            ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED -> {
-                // Permission already granted
-                setUpButtonsWithPermissions()
-            }
+    private fun loadContacts(onDataLoaded: (Cursor) -> Unit) {
+        val cursor = MatrixCursor(arrayOf("_id", "uid", "name", "email", "availability"))
 
-            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_CONTACTS) -> {
-                // If user previously denied the permission
-                Toast.makeText(this, "Permission previously denied", Toast.LENGTH_SHORT).show()
-                requestPermission(this, android.Manifest.permission.READ_CONTACTS, CONTACTS_PERMISSION_CODE, "Needed for adding contacts")
-            }
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users")
 
-            else -> {
-                // Always call the own function to request permission, not the system one (requestPermissions)
-                requestPermission(this, android.Manifest.permission.READ_CONTACTS, CONTACTS_PERMISSION_CODE, "Needed for adding contacts")
+        databaseRef.get().addOnSuccessListener {
+            for (data in it.children) {
+                // TODO Check if the contact is already in the emergency contacts or if it is the current user
+                val uid = data.key
+                val name = data.child("name").value.toString()
+                val email = data.child("email").value.toString()
+                val availability = data.child("available").value.toString()
+                cursor.addRow(arrayOf("0", uid, name, email, availability))
             }
-
+            onDataLoaded(cursor)
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error al cargar los contactos", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun requestPermission(context: AppCompatActivity, permission: String, requestCode: Int, justify: String) {
-        if(ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-            if(shouldShowRequestPermissionRationale(permission)) {
-                Toast.makeText(this, justify, Toast.LENGTH_SHORT).show()
-            }
-            requestPermissions(arrayOf(permission), requestCode)
-        } else {
-            Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
+    private fun setUpListView(){
+        loadContacts { cursor ->
+            val adapter = AddEmergencyContactsAdapter(this, cursor, 0)
+            binding.listViewAddEmergencyContacts.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            CONTACTS_PERMISSION_CODE -> {
-                if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // Permission granted
-                    setUpButtonsWithPermissions()
-                } else {
-                    // Permission denied
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                    disableButtons()
-                }
-                return
-            }
-
-            else -> {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            }
-        }
-    }
-
-    private fun setUpButtonsWithoutPermissions() {
-        binding.btnSelectContact.setOnClickListener {
-            checkPermissionForContacts()
-        }
-
-        binding.btnSendRequest.setOnClickListener {
-            Toast.makeText(this, "Solicitud enviada", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun setUpButtonsWithPermissions() {
-        binding.btnSelectContact.setOnClickListener {
-            // Implicit intent to select a contact
-            val intent = Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)
-            startActivity(intent)
-        }
-    }
-
-    private fun disableButtons() {
-        binding.btnSelectContact.isEnabled = false
     }
 }

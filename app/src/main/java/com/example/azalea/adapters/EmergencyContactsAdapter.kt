@@ -18,12 +18,12 @@ class EmergencyContactsAdapter(context: Context?, c: Cursor?, flags: Int) : Curs
 
     override fun bindView(view: View?, context: Context?, cursor: Cursor?) {
         val txtName = view?.findViewById<TextView>(R.id.nameContactEmergency)
-        val txtNumber = view?.findViewById<TextView>(R.id.phoneContactEmergency)
+        val txtNumber = view?.findViewById<TextView>(R.id.emailProfileTextView)
         // Extract properties from cursor
         val nombre = cursor?.getString(1)
-        val numero = cursor?.getString(2)
+        val correo = cursor?.getString(2)
 
         txtName?.text = nombre
-        txtNumber?.text = numero
+        txtNumber?.text = correo
     }
 }

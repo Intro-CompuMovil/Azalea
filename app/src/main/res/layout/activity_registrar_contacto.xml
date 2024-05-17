@@ -5,162 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RegistrarContactoActivity"
-    android:background="@color/azalea">
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/titleRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/registrar_contacto_de_emergencia"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/SecondaryAzalea"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
-        android:fontFamily="@font/abril_fatface"
-
-        />
-
-    <ImageView
-        android:id="@+id/flower1"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        android:src="@drawable/azalea"
-        android:layout_alignParentStart="true"
+    <RelativeLayout
         android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:alpha="0.2" />
-
-
-    <ImageView
-        android:id="@+id/flower2"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        android:src="@drawable/azalea"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:alpha="0.2" />
-
-    <ImageView
-        android:id="@+id/flower3"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        android:src="@drawable/azalea"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.2" />
-
-
-    <ImageView
-        android:id="@+id/flower4"
-        android:layout_width="115dp"
-        android:layout_height="100dp"
-        android:src="@drawable/azalea"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.2" />
+        android:id="@+id/relativeLayoutMessageAct"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/azalea"
+        android:orientation="horizontal"
+        android:elevation="4dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/goBackButtonAddContact"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            />
 
-    <TextView
-        android:id="@+id/labelContactNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/numero_del_contacto"
-        android:textColor="@color/SecondaryAzalea"
-        android:textSize="18sp"
-        android:layout_below="@id/titleRegister"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/abril_fatface"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/agregar_contacto"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
 
-    <EditText
-        android:id="@+id/editContactNumber"
+    <LinearLayout
+        android:id="@+id/linearLayoutAddContactSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/introduzca_numero"
-        android:layout_toEndOf="@id/labelContactNumber"
-        android:layout_alignBaseline="@id/labelContactNumber"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        />
+        android:layout_below="@id/relativeLayoutMessageAct"
+        android:orientation="horizontal"
+        android:layout_marginVertical="15dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/template_searchbar">
 
-    <Button
-        android:id="@+id/btnSelectContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/seleccionar_contacto"
-        android:layout_below="@id/labelContactNumber"
-        android:layout_toEndOf="@id/labelContactNumber"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/SecondaryAzalea"
-        android:fontFamily="@font/abril_fatface"
-        />
+        <EditText
+            android:layout_marginStart="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextSearchContact"
+            android:autofillHints="emailAddress"
+            android:hint="@string/buscar_contacto"
+            android:layout_marginEnd="10dp"
+            android:imeOptions="actionDone"
+            />
 
-    <TextView
-        android:id="@+id/labelContactName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nombre_del_contacto"
-        android:textColor="@color/SecondaryAzalea"
-        android:textSize="18sp"
-        android:layout_below="@id/btnSelectContact"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/abril_fatface"
-        />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/imageButtonSearchContact"
+            android:contentDescription="@string/search_contact"
+            android:src="@drawable/baseline_search_24"
+            android:background="@color/transparent"
+            android:layout_marginEnd="10dp"
+            />
 
-    <EditText
-        android:id="@+id/editPhoneNumber"
+    </LinearLayout>
+
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/introduzca_nombre_de_tel_fono"
-        android:layout_toEndOf="@id/labelContactName"
-        android:layout_alignBaseline="@id/labelContactName"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp" />
-
-    <TextView
-        android:id="@+id/labelRelation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/relaci_n"
-        android:textColor="@color/SecondaryAzalea"
-        android:textSize="18sp"
-        android:layout_below="@id/editPhoneNumber"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/abril_fatface"/>
-
-    <EditText
-        android:id="@+id/editRelation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/introduzca_relaci_n_con_el_contacto"
-        android:layout_toEndOf="@id/labelRelation"
-        android:layout_alignBaseline="@id/labelRelation"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp" />
-
-
-    <Button
-        android:id="@+id/btnSendRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enviar_solicitud"
-        android:layout_below="@id/editRelation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/SecondaryAzalea"
-        android:fontFamily="@font/abril_fatface"
-        />
+        android:id="@+id/listViewAddEmergencyContacts"
+        android:divider="@color/gray"
+        android:dividerHeight="1dp"
+        android:layout_below="@+id/linearLayoutAddContactSearch"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"/>
 
 </RelativeLayout>

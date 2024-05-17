@@ -83,4 +83,8 @@
     <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="logout">Logout</string>
     <string name="disponibilidad">Disponibilidad</string>
+    <string name="buscar_contacto">Buscar contacto</string>
+    <string name="search_contact">Search Contact</string>
+    <string name="agregar">Agregar</string>
+    <string name="availability">Availability</string>
 </resources>
