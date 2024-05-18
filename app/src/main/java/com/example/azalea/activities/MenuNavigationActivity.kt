@@ -1,10 +1,13 @@
 package com.example.azalea.activities
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,6 +22,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import java.io.File
@@ -40,7 +47,65 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         setUpButtons()
         setUpFragmentNavigation()
         openFragment(PanicoFragment(), "Botón de pánico")
-        // TODO If user first login then show a popup to ask for the emergency code
+
+        // Get reference to database and listen for changes for own emergency state
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users/$uid/emergencyCode")
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val emergencyCode = dataSnapshot.getValue(Int::class.java)
+
+                if (emergencyCode == null) {
+                    // Maneja el caso cuando el emergencyCode no se puede leer como Int
+                    Log.e("MenuNavigationActivity", "El emergencyCode no se pudo leer como un entero")
+                    return
+                }
+                if (emergencyCode == -1) {
+                    setUpEmergencyCodeDialog()
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle possible errors.
+                Log.e("MenuNavigationActivity", "Error al leer emergencyCode: ${databaseError.message}")
+
+            }
+        })
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun setUpEmergencyCodeDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        builder.setTitle("Ingrese el nuevo código de emergencia")
+
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_custom_view, null)
+        val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
+
+        builder.setView(dialogLayout)
+        builder.setPositiveButton("Actualizar") { dialogInterface, i ->
+            val newCode = editText.text.toString()
+            if (newCode.isNotEmpty()) {
+                val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+                val databaseRef = FirebaseDatabase.getInstance().getReference("Users/$uid/emergencyCode")
+                databaseRef.setValue(newCode.toInt()).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Check if the user is still signed in
+                        val user = FirebaseAuth.getInstance().currentUser
+                        if (user == null) {
+                            // Re-authenticate the user or redirect to login screen
+                        }
+                    } else {
+                        Toast.makeText(this@MenuNavigationActivity, "Error al actualizar el código de emergencia", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(this@MenuNavigationActivity, "El código de emergencia no puede estar vacío", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("Cancelar") { dialogInterface, i -> }
+        builder.show()
     }
 
     override fun onResume() {

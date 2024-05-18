@@ -142,8 +142,10 @@ class PanicoFragment : Fragment() {
         }
     }
 
-    private fun stopLocationUpdates() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+    fun stopLocationUpdates() {
+        if (::mLocationCallback.isInitialized) {
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+        }
     }
 
     private fun createLocationRequest() : LocationRequest =
