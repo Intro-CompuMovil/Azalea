@@ -82,16 +82,15 @@
     </LinearLayout>
 
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewAddEmergencyContacts"
-        android:divider="@color/gray"
-        android:dividerHeight="1dp"
-        android:layout_below="@+id/linearLayoutAddContactSearch"
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@id/linearLayoutAddContactSearch"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/item_add_emergency_contacts"
+        android:id="@+id/recyclerViewAddContact"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"/>
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
