@@ -1,9 +1,11 @@
 package com.example.azalea.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,36 +17,49 @@ import com.example.azalea.activities.CancelarActivity
 import com.example.azalea.activities.ConfigurarMensajeActivity
 import com.example.azalea.data.PermissionsCodes
 import com.example.azalea.databinding.FragmentPanicoBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class PanicoFragment : Fragment() {
     private var _binding: FragmentPanicoBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mLocationRequest: LocationRequest
+    private lateinit var mLocationCallback: LocationCallback
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPanicoBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root ?: View(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setUpButtonsWithPermissions()
+            setUpLocationRequestAndCallback()
         } else {
             setUpButtonsWithoutPermissions()
         }
+        setUpButtonsWithoutPermissionRequirement()
+        setUpListenerForEmergency()
     }
 
 
-    private fun setUpButtonsWithoutPermissions() {
-        _binding?.imgButtonPanic?.setOnClickListener {
-            checkPermissionForLocation(requireActivity() as AppCompatActivity)
-        }
-
-        _binding?.buttonCancelarPanic?.isEnabled = false
+    private fun setUpButtonsWithoutPermissionRequirement() {
         _binding?.buttonCancelarPanic?.setOnClickListener {
             val intent = Intent(requireActivity(), CancelarActivity::class.java)
             startActivity(intent)
@@ -56,11 +71,19 @@ class PanicoFragment : Fragment() {
         }
     }
 
+    private fun setUpButtonsWithoutPermissions() {
+        _binding?.imgButtonPanic?.setOnClickListener {
+            checkPermissionForLocation(requireActivity() as AppCompatActivity)
+        }
+    }
+
     private fun setUpButtonsWithPermissions() {
         _binding?.imgButtonPanic?.setOnClickListener {
             Toast.makeText(requireContext(), "Panic button pressed", Toast.LENGTH_SHORT).show()
-            _binding?.buttonCancelarPanic?.isEnabled = true
-            // TODO Start getting location until otherwise stated & change the emergency to true on database
+
+            // Get reference to database and set own emergency state to true
+            val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergency")
+            databaseRef.setValue(true)
         }
     }
 
@@ -68,11 +91,73 @@ class PanicoFragment : Fragment() {
         _binding?.imgButtonPanic?.isEnabled = false
     }
 
+    private fun setUpListenerForEmergency() {
+        // Get reference to database and listen for changes for own emergency state
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergency")
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val emergency = snapshot.getValue(Boolean::class.java)
+                emergency?.let {
+                    if (emergency) {
+                        // If emergency is true, disable the panic button and enable the cancel button
+                        binding?.imgButtonPanic?.isEnabled = false
+                        binding?.buttonCancelarPanic?.isEnabled = true
+                        // Start location service for getting and uploading location
+                        startLocationUpdates()
+                    } else {
+                        // If emergency is false, enable the panic button and disable the cancel button
+                        binding?.imgButtonPanic?.isEnabled = true
+                        binding?.buttonCancelarPanic?.isEnabled = false
+                        // Stop location service
+                        stopLocationUpdates()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("PanicoFragment", "Error loading emergency state", error.toException())
+            }
+        })
+    }
+
+    private fun setUpLocationRequestAndCallback() {
+        mLocationRequest = createLocationRequest()
+        mLocationCallback = object : LocationCallback() {
+            @SuppressLint("SetTextI18n")
+            override fun onLocationResult(locationResult: LocationResult) {
+                val location = locationResult.lastLocation
+                if (location != null) {
+                    val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/location")
+                    databaseRef.setValue("${location.latitude},${location.longitude}")
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        if (binding != null && ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null)
+        }
+    }
+
+    private fun stopLocationUpdates() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+    }
+
+    private fun createLocationRequest() : LocationRequest =
+        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000).apply {
+            setMinUpdateIntervalMillis(5000)
+        }.build()
+
+
     private fun checkPermissionForLocation(activity: AppCompatActivity) {
         when{
             ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
                 // Permission already granted
                 setUpButtonsWithPermissions()
+                setUpLocationRequestAndCallback()
             }
 
             shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
@@ -108,6 +193,7 @@ class PanicoFragment : Fragment() {
                 if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // Permission granted
                     setUpButtonsWithPermissions()
+                    setUpLocationRequestAndCallback()
                 } else {
                     // Permission denied
                     Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()

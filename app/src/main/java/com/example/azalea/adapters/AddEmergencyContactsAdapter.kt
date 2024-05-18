@@ -62,7 +62,7 @@ class AddEmergencyContactsAdapter(private var userListAdapter: MutableMap<String
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View, clickListener: onItemClickListener, private val adapter: AddEmergencyContactsAdapter) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, clickListener: onItemClickListener, private val adapter: AddEmergencyContactsAdapter) : RecyclerView.ViewHolder(itemView) {
         val nameContactEmergency: TextView = itemView.findViewById(R.id.nameAddContactEmergency)
         val emailContactEmergency: TextView = itemView.findViewById(R.id.emailAddContactEmergency)
         val imageContactEmergency: ImageView = itemView.findViewById(R.id.imgAddContact)

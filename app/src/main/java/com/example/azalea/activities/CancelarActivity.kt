@@ -6,12 +6,18 @@ import android.content.pm.PackageManager
 import androidx.biometric.BiometricPrompt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.azalea.data.PermissionsCodes.Companion.BIOMETRIC_PERMISSION_CODE
 import java.util.concurrent.Executors
 import com.example.azalea.databinding.ActivityCancelarBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
 class CancelarActivity : AppCompatActivity() {
@@ -53,9 +59,16 @@ class CancelarActivity : AppCompatActivity() {
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "Authentication succeeded", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication succeeded",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+                // Get reference to database and set own emergency state to true
+                val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergency")
+                databaseRef.setValue(false)
                 // Continue with your action after successful authentication
                 val intent = Intent(applicationContext, MenuNavigationActivity::class.java)
                 startActivity(intent)
@@ -94,11 +107,26 @@ class CancelarActivity : AppCompatActivity() {
     }
 
     private fun checkForConfirmation(): Boolean {
-        val confirmation = binding.switchCancelAct.isChecked
+        var confirmation: Boolean = binding.switchCancelAct.isChecked
+        if (!confirmation) return false
+        val codeTyped = binding.codeTextFieldCancelAct.text.toString().toInt()
 
         // Internally checks if code was correct
-        // TODO Check for the code and compare it with the one in the database / must continue flow either way
-        // If code is not correct should not change the state of the emergency on the database
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergencyCode")
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val code = snapshot.getValue(Int::class.java)
+                if (code != null) {
+                    confirmation = codeTyped == code
+                    if(!confirmation) Toast.makeText(this@CancelarActivity, "Código incorrecto", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("CancelarActivity", "Error loading emergency code", error.toException())
+                confirmation = false
+            }
+        })
 
         return confirmation
     }
