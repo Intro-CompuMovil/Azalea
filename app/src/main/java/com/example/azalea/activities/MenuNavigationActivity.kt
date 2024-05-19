@@ -47,6 +47,7 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         setUpButtons()
         setUpFragmentNavigation()
         openFragment(PanicoFragment(), "Botón de pánico")
+<<<<<<< HEAD
 
         // Get reference to database and listen for changes for own emergency state
         val uid = FirebaseAuth.getInstance().currentUser?.uid!!
@@ -106,6 +107,8 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
         builder.setNegativeButton("Cancelar") { dialogInterface, i -> }
         builder.show()
+=======
+>>>>>>> 66b7439 (User messages)
     }
 
     override fun onResume() {

@@ -36,6 +36,13 @@ class RegistrarContactoActivity : AppCompatActivity() {
 
         loadContacts()
         setUpSearchUI()
+        setUpButtons()
+    }
+
+    private fun setUpButtons() {
+        binding.goBackButtonAddContact.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadContacts() {

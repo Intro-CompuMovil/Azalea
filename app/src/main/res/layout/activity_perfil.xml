@@ -336,12 +336,42 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutLogOut"
+                    android:id="@+id/linearLayoutChangeCode"
                     android:padding="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/logout"
+                        android:src="@drawable/baseline_key"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cambiar_c_digo"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutLogOut"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"

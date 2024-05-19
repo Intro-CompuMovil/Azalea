@@ -98,6 +98,11 @@ class PerfilActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.linearLayoutChangeCode.setOnClickListener {
+            val intent = Intent(this, ChangeCodeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setUpInformation() {

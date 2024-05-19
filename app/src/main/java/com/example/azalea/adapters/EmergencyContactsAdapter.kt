@@ -2,6 +2,7 @@ package com.example.azalea.adapters
 
 import android.content.Context
 import android.database.Cursor
+import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,9 @@ import com.example.azalea.data.User
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
-class EmergencyContactsAdapter(private var userListAdapter: MutableMap<String, User>, private var isForEmergency: Boolean = false, private var location: String = "") : RecyclerView.Adapter<EmergencyContactsAdapter.ViewHolder>() {
+class EmergencyContactsAdapter(private var userListAdapter: MutableMap<String, User>, private var isForEmergency: Boolean = false) : RecyclerView.Adapter<EmergencyContactsAdapter.ViewHolder>() {
     private lateinit var mListener: onItemClickListener
+    private var geocoder: Geocoder? = null
 
     interface onItemClickListener{
         fun onItemClick(position: Int, userListAdapter: MutableMap<String, User>)
@@ -36,7 +38,19 @@ class EmergencyContactsAdapter(private var userListAdapter: MutableMap<String, U
         val currentUser = userListAdapter.values.elementAt(position)
         holder.nameContactEmergency.text = currentUser.name
         // If is for emergency extra is populated with current location
-        holder.extraContactEmergency.text = if (isForEmergency) location else currentUser.email
+        if (!isForEmergency) {
+            holder.extraContactEmergency.text = currentUser.email
+        } else {
+            // Get user location and with geoCoder get the address
+            val location = currentUser.location
+            val latitud = location.split(",")[0].toDouble()
+            val longitud = location.split(",")[1].toDouble()
+
+            if (geocoder == null) geocoder = Geocoder(holder.itemView.context)
+            val locationName = geocoder!!.getFromLocation(latitud, longitud, 1)?.get(0)
+                ?.getAddressLine(0)
+            holder.extraContactEmergency.text = locationName
+        }
         if(!isForEmergency) holder.availabilityContactEmergency.setImageResource(if (currentUser.available) android.R.drawable.presence_online else android.R.drawable.presence_busy)
 
         // Load image from Firebase Storage

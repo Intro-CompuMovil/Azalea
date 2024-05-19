@@ -23,6 +23,7 @@ import com.google.firebase.database.database
 class CancelarActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCancelarBinding
     private val databaseRef = Firebase.database.reference
+    private var confirmation: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,10 +90,11 @@ class CancelarActivity : AppCompatActivity() {
             .build()
 
         binding.buttonSendCancelAct.setOnClickListener {
-            if(checkForConfirmation()) {
+            checkForConfirmation()
+            if(confirmation) {
                 biometricPrompt.authenticate(promptInfo)
             } else {
-                Toast.makeText(this, "Confirme su cancelación con el selector", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ingrese codigo correcto y/o confirme cancelacion", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -106,9 +108,7 @@ class CancelarActivity : AppCompatActivity() {
         binding.buttonSendCancelAct.isEnabled = false
     }
 
-    private fun checkForConfirmation(): Boolean {
-        var confirmation: Boolean = binding.switchCancelAct.isChecked
-        if (!confirmation) return false
+    private fun checkForConfirmation() {
         val codeTyped = binding.codeTextFieldCancelAct.text.toString().toInt()
 
         // Internally checks if code was correct
@@ -128,7 +128,7 @@ class CancelarActivity : AppCompatActivity() {
             }
         })
 
-        return confirmation
+        confirmation = binding.switchCancelAct.isChecked && confirmation
     }
 
     private fun checkPermissionForBiometric(activity: AppCompatActivity) {

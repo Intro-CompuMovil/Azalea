@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChangeCodeActivity">
+
+    <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/relativeLayoutChangeCode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/azalea"
+        android:orientation="horizontal"
+        android:elevation="4dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/goBackButtonLayoutChangeCode"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            />
+
+        <TextView
+            android:id="@+id/titleCancelAlertTextView"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/cambiar_c_digo"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/actualCodeTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/c_digo_actual"
+        android:textAlignment="viewStart"
+        android:layout_below="@id/relativeLayoutChangeCode">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/actualCodeEditTextProfile"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:inputType="number"
+            android:gravity="start"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/newCodeTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/nuevo_c_digo"
+        android:textAlignment="viewStart"
+        android:layout_below="@id/actualCodeTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newCodeEditTextProfile"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:inputType="number"
+            android:gravity="start"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonSaveNewCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_below="@id/newCodeTextInputLayout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/SecondaryAzalea"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/actualizar_c_digo"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

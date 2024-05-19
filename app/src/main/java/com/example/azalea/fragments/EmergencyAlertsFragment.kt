@@ -28,6 +28,9 @@ class EmergencyAlertsFragment : Fragment() {
     private val binding get() = _binding
     private val userList = mutableMapOf<String, User>()
     private var mAdapter: EmergencyContactsAdapter? = null
+    private var currentAuthUser = User()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +42,44 @@ class EmergencyAlertsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCurrentContactsFor()
+        checkAvailability()
+    }
+
+    private fun checkAvailability() {
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/available")
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val available = snapshot.getValue(Boolean::class.java)
+                if (available == false) {
+                    // If not available remove all elements from list and remove event listeners
+                    userList.clear()
+                    removeListeners()
+                    setUpRecyclerView()
+                } else {
+                    // If available get all contacts
+                    getCurrentContactsFor()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("RegistrarContactoActivity", "Error loading current contacts", error.toException())
+            }
+        })
+    }
+
+    private val contactsEventListener = object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            val currentUser = snapshot.getValue(User::class.java)
+            currentUser?.let {
+                currentAuthUser = it
+                getContactInformation()
+            }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            Log.e("RegistrarContactoActivity", "Error loading current contacts", error.toException())
+        }
     }
 
     private fun getCurrentContactsFor() {
@@ -48,54 +88,45 @@ class EmergencyAlertsFragment : Fragment() {
         val databaseRefCurrentContacts = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}")
 
         // Change it so its a on value change event listener so every time a contact is added it updates the list
-        databaseRefCurrentContacts.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val currentUser = snapshot.getValue(User::class.java)
-                currentUser?.let {
-                    getContactInformation(currentUser)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("RegistrarContactoActivity", "Error loading current contacts", error.toException())
-            }
-        })
+        databaseRefCurrentContacts.addValueEventListener(contactsEventListener)
 
         setUpRecyclerView()
     }
 
-    private fun getContactInformation(currentUser: User) {
+    private val informationEventListener = object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            userList.clear()
+            if(!snapshot.exists()){
+                return
+            }
+
+            for (userSnapshot in snapshot.children) {
+                val user = userSnapshot.getValue(User::class.java)
+                user?.let {
+                    if (currentAuthUser.emergencyContactFor.contains(userSnapshot.key.toString()) && user.emergency) {
+                        userList[userSnapshot.key.toString()] = it
+                    }
+                }
+            }
+            setUpRecyclerView()
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            Log.e("RegistrarContactoActivity", "Error loading contacts", error.toException())
+        }
+    }
+
+    private fun getContactInformation() {
         // Get reference for all Users and only add the ones that are not already in the current user's contacts
         val databaseRef = FirebaseDatabase.getInstance().getReference("Users")
 
-        databaseRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
-                if(!snapshot.exists()){
-                    return
-                }
-
-                for (userSnapshot in snapshot.children) {
-                    val user = userSnapshot.getValue(User::class.java)
-                    user?.let {
-                        if (currentUser.emergencyContactFor.contains(userSnapshot.key.toString()) && user.emergency) {
-                            userList[userSnapshot.key.toString()] = it
-                        }
-                    }
-                }
-                setUpRecyclerView()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("RegistrarContactoActivity", "Error loading contacts", error.toException())
-            }
-        })
+        databaseRef.addValueEventListener(informationEventListener)
     }
 
     private fun setUpRecyclerView() {
         binding?.let { b ->
             b.recyclerViewEmergencyContactFor.layoutManager = LinearLayoutManager(requireContext())
-            mAdapter = EmergencyContactsAdapter(userList)
+            mAdapter = EmergencyContactsAdapter(userList, true)
             b.recyclerViewEmergencyContactFor.adapter = mAdapter
 
             mAdapter!!.setOnItemClickListener(object : EmergencyContactsAdapter.onItemClickListener {
@@ -103,12 +134,20 @@ class EmergencyAlertsFragment : Fragment() {
                     val uid = userListAdapter.keys.elementAt(position)
                     val intent = Intent(context, MapsOSMActivity::class.java)
                     intent.putExtra("uid", uid)
-                    startActivity(intent)
+                    startActivity(intent) // TODO @Ana - Use uid of the user that is in an emergency to get and update their location
                 }
             })
 
             b.recyclerViewEmergencyContactFor.visibility = android.view.View.VISIBLE
         }
+    }
+
+    private fun removeListeners() {
+        val databaseRef = FirebaseDatabase.getInstance().getReference("Users")
+        databaseRef.removeEventListener(informationEventListener)
+
+        val databaseRefCurrentContacts = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}")
+        databaseRefCurrentContacts.removeEventListener(contactsEventListener)
     }
 
     override fun onDestroyView() {

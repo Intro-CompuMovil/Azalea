@@ -14,4 +14,6 @@ data class User(
     var emergencyContacts: List<String> = emptyList(),
     var emergencyContactFor: List<String> = emptyList(),
     var emergencyCode: Int = -1,
+    var emergencyMessage: String = "Ayuda, estoy en peligro",
+    var cancelMessage: String = "Ya estoy a salvo",
 )
