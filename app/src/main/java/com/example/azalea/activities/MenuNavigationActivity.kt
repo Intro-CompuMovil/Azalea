@@ -81,7 +81,7 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private fun setUpEmergencyCodeDialog() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
-        builder.setTitle("Ingrese el nuevo código de emergencia")
+        builder.setTitle("CODIGO DE EMERGENCIA")
 
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_custom_view, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
