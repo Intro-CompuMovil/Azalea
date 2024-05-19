@@ -69,27 +69,46 @@ class NotificationActivity : AppCompatActivity() {
                 userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val user = dataSnapshot.getValue(User::class.java)
-                        if (user != null && user.emergency && !user.emergencySent) {
-                            val newNotification = Notification(
-                                senderId = senderId,
-                                title = "Alerta del usuario: ${user.name}",
-                                content = "${user.emergencyMessage}"
-                            )
+                        if (user != null) {
+                            if (user.emergency && !user.emergencySent) {
+                                val newNotification = Notification(
+                                    senderId = senderId,
+                                    title = "Alerta del usuario: ${user.name}",
+                                    content = "${user.emergencyMessage}"
+                                )
 
-                            // Verificar si la notificación ya existe
-                            val notificationExists = notifications.any { it.senderId == newNotification.senderId }
+                                // Verificar si la notificación ya existe
+                                val notificationExists = notifications.any { it.senderId == newNotification.senderId }
 
-                            if (!notificationExists) {
-                                // Si la notificación no existe, agregarla a la lista y enviarla
-                                val userRef = FirebaseDatabase.getInstance().getReference("Users").child(senderId)
-                                userRef.child("notifications").push().setValue(newNotification)
-                                notifications.add(newNotification)
-                                adapter.notifyDataSetChanged()
+                                if (!notificationExists) {
+                                    // Si la notificación no existe, agregarla a la lista y enviarla
+                                    val userRef = FirebaseDatabase.getInstance().getReference("Users").child(senderId)
+                                    userRef.child("notifications").push().setValue(newNotification)
+                                    notifications.add(newNotification)
+                                    adapter.notifyDataSetChanged()
+                                }
+
+                                // Marcar la notificación de emergencia como enviada
+                               // user.emergencySent = true
+                                userRef.setValue(user)
+                            } else if (!user.emergency) {
+                                val cancelNotification = Notification(
+                                    senderId = senderId,
+                                    title = "Cancelación de alerta del usuario: ${user.name}",
+                                    content = "${user.cancelMessage}"
+                                )
+
+                                // Verificar si la notificación de cancelación ya existe
+                                val notificationExists = notifications.any { it.senderId == cancelNotification.senderId }
+
+                                if (!notificationExists) {
+                                    // Si la notificación de cancelación no existe, agregarla a la lista y enviarla
+                                    val userRef = FirebaseDatabase.getInstance().getReference("Users").child(senderId)
+                                    userRef.child("notifications").push().setValue(cancelNotification)
+                                    notifications.add(cancelNotification)
+                                    adapter.notifyDataSetChanged()
+                                }
                             }
-
-                            // Marcar la notificación de emergencia como enviada
-                            user.emergencySent = true
-                            userRef.setValue(user)
                         }
                     }
 
