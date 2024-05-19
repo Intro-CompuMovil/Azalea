@@ -2,7 +2,9 @@ package com.example.azalea.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Color
@@ -21,6 +23,12 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import org.osmdroid.api.IMapController
 import org.osmdroid.bonuspack.routing.OSRMRoadManager
 import org.osmdroid.bonuspack.routing.RoadManager
@@ -43,13 +51,23 @@ class MapsOSMActivity : AppCompatActivity() {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mLocationCallback: LocationCallback
+    private lateinit var database: FirebaseDatabase
+    private lateinit var endpointRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsOsmactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        obtainEndPoint()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        database = FirebaseDatabase.getInstance()
+        endpointRef = database.getReference("Users/$uid/location")
+        val helperUid = intent.getStringExtra("uid")
+        // Llama a obtainEndPoint con el uid del usuario que está pidiendo ayuda
+        if (helperUid != null) {
+            obtainEndPoint(helperUid)
+        }
+
         startOSM()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         checkPermissionForLocation(this)
@@ -67,22 +85,32 @@ class MapsOSMActivity : AppCompatActivity() {
         roadManager = OSRMRoadManager(this, "ANDROID")
     }
 
-    private fun obtainEndPoint() {
-        // Recibir el Bundle de coordenadas finales
-        // TODO Must be changed so the endpoint is received from the database with an event listener for any changes
-        val bundle = intent.extras
-        endPoint = if (bundle != null) {
-            val latitude = bundle.getDouble("latitude", 0.0)
-            val longitude = bundle.getDouble("longitude", 0.0)
-            binding.osmMap.controller.setZoom(15.0)
-            binding.osmMap.controller.setCenter(GeoPoint(latitude, longitude))
-            GeoPoint(latitude, longitude)
-        } else {
-            // Mostrar un Toast indicando que no se encontraron coordenadas finales
-            Toast.makeText(this, "No se encontraron coordenadas finales", Toast.LENGTH_SHORT).show()
-            // Asignar coordenadas predeterminadas o manejar el caso según sea necesario
-            GeoPoint(0.0, 0.0)
-        }
+
+
+    private fun obtainEndPoint(helperUid: String) {
+        val helperEndpointRef = database.getReference("Users/$helperUid/location")
+
+        helperEndpointRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get the location data from the snapshot
+                val locationData = dataSnapshot.getValue(String::class.java)
+
+                // Parse the location data
+                if (locationData != null) {
+                    val latLong = locationData.split(",")
+                    val latitude = latLong[0].toDouble()
+                    val longitude = latLong[1].toDouble()
+
+                    // Update the endpoint with the new location data
+                    endPoint = GeoPoint(latitude, longitude)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Log a message if there was an error reading the data
+                Log.w("MapsOSMActivity", "Failed to read location.", databaseError.toException())
+            }
+        })
     }
 
     private fun setUpLocationRequestAndCallback() {
@@ -127,6 +155,7 @@ class MapsOSMActivity : AppCompatActivity() {
         drawRoute(currentLocation, endPoint)
         val mapController: IMapController = binding.osmMap.controller
         mapController.setCenter(currentLocation)
+        binding.osmMap.invalidate()
     }
 
     private fun stopLocationUpdates() {
