@@ -1,6 +1,7 @@
 package com.example.azalea.fragments
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
@@ -10,11 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import android.Manifest
 import com.example.azalea.R
 import com.example.azalea.activities.MapsOSMActivity
 import com.example.azalea.activities.MenuNavigationActivity
 import com.example.azalea.adapters.EmergencyContactsAdapter
+import com.example.azalea.data.PermissionsCodes.Companion.LOCATION_PERMISSION_CODE
 import com.example.azalea.data.User
 import com.example.azalea.databinding.FragmentEmergencyAlertsBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -103,7 +107,16 @@ class EmergencyAlertsFragment : Fragment() {
                     val uid = userListAdapter.keys.elementAt(position)
                     val intent = Intent(context, MapsOSMActivity::class.java)
                     intent.putExtra("uid", uid)
-                    startActivity(intent)
+
+                    // Comprueba si el permiso de ubicación ya ha sido concedido
+                    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                        // Si no se ha concedido, solicita el permiso.
+                        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_CODE)
+                    } else {
+                        // Si ya se ha concedido, inicia la actividad.
+                        startActivity(intent)
+                    }
                 }
             })
 
