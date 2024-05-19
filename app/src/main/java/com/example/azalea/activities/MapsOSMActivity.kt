@@ -67,6 +67,7 @@ class MapsOSMActivity : AppCompatActivity() {
         if (helperUid != null) {
             obtainEndPoint(helperUid)
         }
+        //endpoints
 
         startOSM()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
