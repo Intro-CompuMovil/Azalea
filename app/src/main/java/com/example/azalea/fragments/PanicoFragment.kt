@@ -81,6 +81,7 @@ class PanicoFragment : Fragment() {
         _binding?.imgButtonPanic?.setOnClickListener {
             Toast.makeText(requireContext(), "Panic button pressed", Toast.LENGTH_SHORT).show()
 
+
             // Get reference to database and set own emergency state to true
             val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergency")
             databaseRef.setValue(true)

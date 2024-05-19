@@ -1,5 +1,7 @@
 package com.example.azalea.data
 
+import com.example.azalea.models.Notification
+
 data class User(
     var name: String = "",
     var email: String = "",
@@ -10,6 +12,7 @@ data class User(
     var description: String = "",
     var available: Boolean = true,
     var emergency: Boolean = false,
+    var emergencySent: Boolean = false,
     var location: String = "0.0,0.0",
     var emergencyContacts: List<String> = emptyList(),
     var emergencyContactFor: List<String> = emptyList(),

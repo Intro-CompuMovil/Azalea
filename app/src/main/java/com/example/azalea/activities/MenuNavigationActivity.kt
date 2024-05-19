@@ -47,7 +47,9 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         setUpButtons()
         setUpFragmentNavigation()
         openFragment(PanicoFragment(), "Botón de pánico")
-<<<<<<< HEAD
+
+
+
 
         // Get reference to database and listen for changes for own emergency state
         val uid = FirebaseAuth.getInstance().currentUser?.uid!!
@@ -84,6 +86,9 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_custom_view, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
 
+
+
+
         builder.setView(dialogLayout)
         builder.setPositiveButton("Actualizar") { dialogInterface, i ->
             val newCode = editText.text.toString()
@@ -107,8 +112,7 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
         builder.setNegativeButton("Cancelar") { dialogInterface, i -> }
         builder.show()
-=======
->>>>>>> 66b7439 (User messages)
+
     }
 
     override fun onResume() {
@@ -124,8 +128,8 @@ class MenuNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         binding.notificationsButton.setOnClickListener {
             Toast.makeText(this, "Notificaciones", Toast.LENGTH_SHORT).show()
-            //val intent = Intent(this, NotificationsActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
         }
     }
 
