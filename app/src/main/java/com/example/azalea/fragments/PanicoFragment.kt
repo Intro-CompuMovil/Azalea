@@ -32,9 +32,9 @@ import com.google.firebase.database.ValueEventListener
 class PanicoFragment : Fragment() {
     private var _binding: FragmentPanicoBinding? = null
     private val binding get() = _binding
-    private var mFusedLocationClient: FusedLocationProviderClient? = null
-    private var mLocationRequest: LocationRequest? = null
-    private var mLocationCallback: LocationCallback? = null
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mLocationRequest: LocationRequest
+    private lateinit var mLocationCallback: LocationCallback
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -139,22 +139,14 @@ class PanicoFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         if (binding != null && ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mLocationRequest?.let { mLocationCallback?.let { it1 ->
-                mFusedLocationClient?.requestLocationUpdates(it,
-                    it1, null)
-            } }
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null)
         }
     }
 
-<<<<<<< HEAD
     fun stopLocationUpdates() {
         if (::mLocationCallback.isInitialized) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback)
         }
-=======
-    private fun stopLocationUpdates() {
-        mLocationCallback?.let { mFusedLocationClient?.removeLocationUpdates(it) }
->>>>>>> 66b7439 (User messages)
     }
 
     private fun createLocationRequest() : LocationRequest =

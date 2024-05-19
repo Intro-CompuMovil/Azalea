@@ -73,7 +73,7 @@ class NotificationActivity : AppCompatActivity() {
                             val newNotification = Notification(
                                 senderId = senderId,
                                 title = "Alerta del usuario: ${user.name}",
-                                content = "Este contacto pidió tu ayuda."
+                                content = "${user.emergencyMessage}"
                             )
 
                             // Verificar si la notificación ya existe
@@ -100,21 +100,10 @@ class NotificationActivity : AppCompatActivity() {
             }
 
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, prevChildKey: String?) {
-                // Implementar lógica si es necesario
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                // Implementar lógica si es necesario
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, prevChildKey: String?) {
-                // Implementar lógica si es necesario
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Implementar lógica si es necesario
-            }
+            override fun onChildChanged(dataSnapshot: DataSnapshot, prevChildKey: String?) {}
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, prevChildKey: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
 
     }
