@@ -156,6 +156,7 @@ class MapsOSMActivity : AppCompatActivity() {
         drawRoute(currentLocation, endPoint)
         val mapController: IMapController = binding.osmMap.controller
         mapController.setCenter(currentLocation)
+        mapController.setZoom(15.0)
         binding.osmMap.invalidate()
     }
 
