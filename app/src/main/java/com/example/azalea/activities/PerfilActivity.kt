@@ -36,9 +36,11 @@ class PerfilActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityPerfilBinding
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        binding.profileImage.setImageURI(uri)
+        if (uri != null) {
+            binding.profileImage.setImageURI(uri)
+            uploadImageToFirebase(uri)
+        }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -97,6 +97,7 @@ class PanicoFragment : Fragment() {
         val databaseRef = FirebaseDatabase.getInstance().getReference("Users/${FirebaseAuth.getInstance().currentUser?.uid}/emergency")
 
         databaseRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun onDataChange(snapshot: DataSnapshot) {
                 val emergency = snapshot.getValue(Boolean::class.java)
                 emergency?.let {
@@ -104,12 +105,16 @@ class PanicoFragment : Fragment() {
                         // If emergency is true, disable the panic button and enable the cancel button
                         binding?.imgButtonPanic?.isEnabled = false
                         binding?.buttonCancelarPanic?.isEnabled = true
+                        binding?.imgButtonPanic?.background = resources.getDrawable(com.example.azalea.R.drawable.template_emergency_button_active, null)
+
                         // Start location service for getting and uploading location
                         startLocationUpdates()
                     } else {
                         // If emergency is false, enable the panic button and disable the cancel button
                         binding?.imgButtonPanic?.isEnabled = true
                         binding?.buttonCancelarPanic?.isEnabled = false
+
+                        binding?.imgButtonPanic?.background = resources.getDrawable(com.example.azalea.R.drawable.template_emergency_button, null)
                         // Stop location service
                         stopLocationUpdates()
                     }
